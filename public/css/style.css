@@ -38,10 +38,10 @@
     font-style: normal;
 }
 @media only screen and (max-device-width: 480px) {
-.calendarWrapper {
-  overflow-y: scroll; /* has to be scroll, not auto */
-  -webkit-overflow-scrolling: touch;
-}
+	.calendarWrapper {
+	  overflow-y: scroll; /* has to be scroll, not auto */
+	  -webkit-overflow-scrolling: touch;
+	}
 }
 ::-webkit-input-placeholder { /* WebKit browsers */
     color: rgba(255,255,255,0.2);
@@ -215,7 +215,7 @@ div.ul {
 	width: 320px;
 	height: 479px;
 	top: 69px;
-	overflow-y: auto;
+	overflow-y: hidden;
 	overflow-x: hidden;
 }
 .calendar {

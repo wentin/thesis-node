@@ -24,6 +24,7 @@ var server = app.listen(8082, function() {
     console.log('Listening on port %d', server.address().port);
 });
 
+var userProfile;
 passport.use(new GoogleStrategy({
     clientID: config.consumer_key,
     clientSecret: config.consumer_secret,
@@ -32,6 +33,7 @@ passport.use(new GoogleStrategy({
   },
 
   function(accessToken, refreshToken, profile, done) {
+    userProfile = profile;
     profile.accessToken = accessToken;
     console.log('Now Check User');
     models.User.findOne({
@@ -92,16 +94,27 @@ app.all('/', checkAuth,  function(req, res){
 
 
 app.get('/api/calendarList', function(req, res){
-
-  //Create an instance from accessToken
   var accessToken = req.session.access_token;
 
   gcal(accessToken).calendarList.list(function(err, data) {
     if(err) return res.send(500,err);
-    console.log('api send calendarList');
-    console.log(data);
     res.send(data);
   });
+});
+
+app.get('/api/eventList', function(req, res){
+  var accessToken = req.session.access_token;
+    gcal(accessToken).events.list('primary', function(err, calendarList) {
+        if(err) return res.send(500,err);
+        res.send(calendarList);
+    });
+});
+
+
+app.get('/api/userProfile', function(req, res){
+  var accessToken = req.session.access_token;
+
+  res.send(userProfile);
 
 });
 
