@@ -22,7 +22,7 @@
 
 // }
 
-function MainCntl($scope) {
-	// $scope.calendar = calendar;
-	//console.log(calendar);
+function MainCntl($scope, $http, calendarList) {
+	console.log(calendarList);
+	$scope.calendarList = calendarList;
 }

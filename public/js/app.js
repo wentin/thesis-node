@@ -6,20 +6,17 @@ PApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
   when('/', {
 		templateUrl: '/main.html',
-		controller: MainCntl,
+		controller: 'MainCntl',
 		resolve: { 
-			calendar: function($http){
-				var calData;
-				$http.get('/api/calendarList').success(function(data) {
-				    console.log(data);
-				    calData = data;
-				    return data;
-				});
-				return calData;
-			}
+			calendarList: ['$http', function($http) {
+		      return $http.get('/api/calendarList').then(function(response){
+		         return response.data;
+		      });
+		    }]
 		}
   }).
   otherwise({
     redirectTo: '/'
   });
+
 }]);
