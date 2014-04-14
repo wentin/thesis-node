@@ -61,7 +61,7 @@ passport.use(new GoogleStrategy({
 ));
 
 function checkAuth(req, res, next) {
-    console.log("now check auth!");
+    console.log("now check auth! can't get in?");
     console.log(!req.session.access_token);
   if (!req.session.access_token) {
     return res.redirect('/auth');
@@ -78,14 +78,14 @@ app.get('/auth/callback',
   passport.authenticate('google', { session: false, failureRedirect: '/login' }),
   function(req, res) { 
     req.session.access_token = req.user.accessToken;
-    console.log("app get auth call back");
+    console.log("app get auth call back, can't get in?");
     console.log(!req.session.access_token);
     res.redirect('/');
 });
 
 app.all('/', checkAuth,  function(req, res){
   //if(!req.session.access_token) return res.redirect('/auth');
-  
+  console.log("I get in!");
   app.use(express.static(path.join(__dirname, '/public')));
   res.sendfile('public/index.html');
 });

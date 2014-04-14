@@ -6,14 +6,16 @@ PApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
   when('/', {
 		templateUrl: '/main.html',
-		controller: 'MainCntl',
-		resolve: { /* returning the promise and then resolving the promise as the data */
-			calendarList: function($http){
+		controller: MainCntl,
+		resolve: { 
+			calendar: function($http){
+				var calData;
 				$http.get('/api/calendarList').success(function(data) {
-				    //$scope.calendarList = data;
 				    console.log(data);
+				    calData = data;
 				    return data;
 				});
+				return calData;
 			}
 		}
   }).

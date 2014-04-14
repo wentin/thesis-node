@@ -1,23 +1,28 @@
-function MainCntl($scope, $http, $location, calendarList) {
+// function MainCntl($scope, $http, $location, calendarList) {
 
 
-	$scope.calendarList = calendarList;
-	console.log(calendarList);
-	// $scope.domain = window.location.origin;
-	/*if ($scope.domain == 'http://quizwidget-petri.dotcloud.com'){
-		$scope.domain = 'http://quiz.huffingtonpost.com';
-	}*/
+// 	$scope.calendarList = calendarList;
+// 	console.log(calendarList);
+// 	// $scope.domain = window.location.origin;
+// 	if ($scope.domain == 'http://quizwidget-petri.dotcloud.com'){
+// 		$scope.domain = 'http://quiz.huffingtonpost.com';
+// 	}
 
-	// $scope.user = null;
+// 	// $scope.user = null;
 
-	// $http.get('/').success(function(data) {
-	//     $scope.calendarList = data;
-	//     console.log(data);
-	// });
+// 	// $http.get('/').success(function(data) {
+// 	//     $scope.calendarList = data;
+// 	//     console.log(data);
+// 	// });
 
-	// var init = function() {
-	// 	console.log('MainCntl', calendarList)
-	// }
-	// init();
+// 	// var init = function() {
+// 	// 	console.log('MainCntl', calendarList)
+// 	// }
+// 	// init();
 
+// }
+
+function MainCntl($scope) {
+	// $scope.calendar = calendar;
+	//console.log(calendar);
 }
