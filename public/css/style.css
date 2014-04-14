@@ -1,0 +1,606 @@
+*{
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -ms-box-sizing:border-box;
+  box-sizing:border-box;
+}
+@font-face {
+    font-family: 'envy_code_rbold';
+    src: url('../font/envy_code_r_bold-webfont.eot');
+    src: url('../font/envy_code_r_bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/envy_code_r_bold-webfont.woff') format('woff'),
+         url('../font/envy_code_r_bold-webfont.ttf') format('truetype'),
+         url('../font/envy_code_r_bold-webfont.svg#envy_code_rbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'envy_code_ritalic';
+    src: url('../font/envy_code_r_italic-webfont.eot');
+    src: url('../font/envy_code_r_italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/envy_code_r_italic-webfont.woff') format('woff'),
+         url('../font/envy_code_r_italic-webfont.ttf') format('truetype'),
+         url('../font/envy_code_r_italic-webfont.svg#envy_code_ritalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'envy_code_rregular';
+    src: url('../font/envy_code_r-webfont.eot');
+    src: url('../font/envy_code_r-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/envy_code_r-webfont.woff') format('woff'),
+         url('../font/envy_code_r-webfont.ttf') format('truetype'),
+         url('../font/envy_code_r-webfont.svg#envy_code_rregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@media only screen and (max-device-width: 480px) {
+.calendarWrapper {
+  overflow-y: scroll; /* has to be scroll, not auto */
+  -webkit-overflow-scrolling: touch;
+}
+}
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: rgba(255,255,255,0.2);
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: rgba(255,255,255,0.2);
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: rgba(255,255,255,0.2);
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: rgba(255,255,255,0.2);
+}
+body {
+	font-family: 'envy_code_rregular', Arial, Helvetica, sans-serif;
+	margin: 0 ;
+	padding: 0;
+	width: 872px;
+	background-color: #000002;
+	color: #ffffff
+}
+h1, h2, h3, h4, ul, li {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+}
+input[type="text"] {
+	-webkit-appearance: none;
+    border-radius: 0;
+}
+
+.unstyled::-webkit-inner-spin-button {
+    /*display: none;
+    -webkit-appearance: none;*/
+
+}
+.unstyled::-webkit-calendar-picker-indicator {
+    /*display: none;*/
+    /*-webkit-appearance: none;*/
+}
+a {
+	color: #ffffff;
+}
+#wrapper {
+	width: 320px;
+	height: 548px;
+	overflow: hidden;
+}
+.mainPanel {
+	width: 320px;
+	height: 548px;
+	background: url(../i/bg.png) no-repeat center center;
+	background-size: 960px 548px;
+	z-index: 1;
+	box-shadow: 0 0 30px rgba(0,0,0,0.95);
+	position: relative;
+	left: 276px;
+	top: -548px
+}
+.leftPanel {
+	width: 276px;
+	height: 548px;
+	background: url(../i/bg.png) no-repeat -44px top;
+	background-size: 960px 548px;
+	position: relative;
+	text-align: center;
+}
+.rightPanel {
+	width: 276px;
+	height: 548px;
+	background: url(../i/bg.png) no-repeat -640px top;
+	background-size: 960px 548px;
+	float: left;
+	position: relative;
+	left: 596px;
+	top: -1096px;
+	text-align: center;
+}
+/************ main panel ************/
+
+div.ul {
+	-webkit-transform: translate3d(-276px, 0px, 0px) scale3d(1, 1, 1);
+}
+
+.myProfile {
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+	border: solid 1px #ffffff;
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	cursor: pointer;
+}
+.myProfile img {
+	width: 34px;
+	height: 34px;
+	border-radius: 17px;
+	display: block;
+	margin: 2px;
+	padding: 0;
+}
+.myProfile i {
+	width: 22px;
+	height: 2px;
+	position: absolute;
+	bottom: -4px;
+	left: -3px;
+	border-bottom: dotted 1px #ffffff;
+}
+.myProfile p {
+	display: block;
+	width: 4px;
+	height: 4px;
+	background-color: #ffffff;
+	border-radius: 2px;
+	position: absolute;
+	left: 18px;
+	bottom: -6px;
+	padding: 0;
+	margin: 0;
+}
+.friendProfile {
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+	border: solid 1px #ffffff;
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	cursor: pointer;
+}
+.friendProfile img {
+	width: 34px;
+	height: 34px;
+	border-radius: 17px;
+	display: block;
+	margin: 2px;
+	padding: 0;
+}
+.friendProfile i {
+	width: 22px;
+	height: 2px;
+	position: absolute;
+	bottom: -4px;
+	right: -3px;
+	border-bottom: dotted 1px #ffffff;
+}
+.friendProfile p {
+	display: block;
+	width: 4px;
+	height: 4px;
+	background-color: #ffffff;
+	border-radius: 2px;
+	position: absolute;
+	right: 18px;
+	bottom: -6px;
+	padding: 0;
+	margin: 0;
+}
+.addButton {
+	width: 120px;
+	height: 60px;
+	position: absolute;
+	left: 100px;
+	top: 0;
+	cursor: pointer;
+}
+.calendarWrapper {
+	position: absolute;
+	width: 320px;
+	height: 479px;
+	top: 69px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+.calendar {
+	background: url(../i/calendar-bg.png) repeat 0 0;
+	background-size: 5px 50px;
+	float: left;
+	width: 320px
+}
+#now {
+	position: absolute;
+	left: 0;
+	background: url(../i/now.png) no-repeat bottom left;
+	background-size: 320px 9px;
+	width: 320px;
+	height: 30px;
+	font-size: 12px;
+	text-indent: 163px;
+	color: #dbdb41;
+	line-height: 36px;
+}
+#now i {
+	font-style: normal;
+}
+.timeLeft {
+	position: relative;
+	float: left;
+	width: 31px;
+	left: 5px;
+	top: -40px;
+	color: rgba(255,255,255,0.6);
+	line-height: 100px;
+	font-size: 12px;
+}
+.timeRight {
+	position: relative;
+	float: right;
+	width: 31px;
+	right: 5px;
+	top: -40px;
+	color: rgba(255,255,255,0.6);
+	line-height: 100px;
+	font-size: 12px;
+}
+.event {
+	position: absolute;
+	width: 150px;
+	background-color: rgba(0,0,0,0.6);
+	border-radius: 3px;
+	border: solid 1px #ffffff;
+	z-index: 1;
+}
+.event.left {
+	left: 5px;
+}
+.event.right {
+	right: 5px;
+}
+.event h1 {
+	height: 42px;
+	border-bottom: solid 1px #ffffff;
+	line-height: 20px;
+	font-size: 18px;
+	margin: 0;
+	padding: 0px 3px 0 3px;
+}
+.event.side {
+	width: 34px;
+}
+.event.side * {
+	display: none;
+}
+.mark{
+	width: 10px;
+	height: 10px;
+	position: absolute;
+}
+.mark.start {
+	top: -5px;
+	background: url(../i/mark.png) no-repeat left top;
+	background-size: 10px 10px;
+}
+.mark.check {
+	bottom: -6px;
+	background: url(../i/mark-check.png) no-repeat left top;
+	background-size: 10px 10px;
+}
+.mark.fail {
+	bottom: -6px;
+	background: url(../i/mark-fail.png) no-repeat left top;
+	background-size: 10px 10px;
+}
+.mark.ongoing {
+	bottom: -6px;
+	background: url(../i/mark-ongoing.png) no-repeat left top;
+	background-size: 10px 10px;
+}
+.mark.future {
+	bottom: -6px;
+	background: url(../i/mark-future.png) no-repeat left top;
+	background-size: 10px 10px;
+}
+.event.left .mark {
+	right: -11px;
+}
+.event.right .mark {
+	left: -11px;
+}
+.event .startEnd {
+	height: 50px;
+	border-bottom: solid 1px #ffffff;
+	background: url(../i/start-end-line.png) no-repeat center center;
+	background-size: 123px 26px;
+	position: relative;
+}
+.event .startEnd .start {
+	position: absolute;
+	left: 3px;
+	top: 2px;
+}
+.event .startEnd .end {
+	position: absolute;
+	right: 3px;
+	bottom: 2px;
+}
+.event .detailWrapper {
+	position: absolute;
+	width: 148px;
+	height: auto;
+	top: 92px;
+	bottom: 0px;
+	overflow: hidden;
+}
+.event .detail {
+	height: 112px;
+	border-bottom: solid 1px #ffffff;
+	position: relative;
+	padding: 0 3px;
+}
+.event .detail .detailTitle {
+	position: absolute;
+	text-transform: uppercase;
+	font-size: 12px;
+	line-height: 27px;
+	top: -3px;
+}
+.event .detail .detailContent {
+	position: absolute;
+	top: 8px;
+	font-size: 12px;
+	line-height: 27px;
+	width: 142px;
+	text-align: right;
+}
+
+.event .detail .detailContent>div {
+	height: 27px;
+	overflow: hidden;
+}
+.event .detail .detailContent>div.success {
+	color: #dbdb41;
+}
+
+/************ left panel / right panel *************/
+.leftPanel h1 {
+	font-size: 24px;
+	width: 100%;
+	height: 45px;
+	line-height: 50px;
+	border-bottom: dotted 1px #ffffff;
+	font-weight: normal;
+	text-align: right;
+	padding: 0 5px;
+}
+.rightPanel h1 {
+	font-size: 24px;
+	width: 100%;
+	height: 45px;
+	line-height: 50px;
+	border-bottom: dotted 1px #ffffff;
+	font-weight: normal;
+	text-align: left;
+	padding: 0 5px;
+}
+.tabs {
+	height: 22px;
+	border: solid 1px #ffffff;
+	border-radius: 5px;
+	font-size: 15px;
+	line-height: 20px;
+	margin: 10px 0;
+	text-align: center;
+	display: inline-block;
+}
+.tabs .tab {
+	display: inline-block;
+	text-align: center;
+	padding: 0 10px;
+	cursor: pointer;
+	text-decoration: none;
+}
+.tab.tabLeft, .tab.tabMiddle {
+	border-right: solid 1px #ffffff;
+}
+.tabs .tab.active {
+	background-color: #ffffff;
+	color: #000000;
+}
+.taskList {
+	text-align: left;
+	border-top: solid 2px #ffffff;
+	font-size: 15px;
+	text-indent: 3px;
+	line-height: 29px;
+}
+.taskList li {
+	font-size: 12px;
+	line-height: 29px;
+	border-top: dotted 1px #ffffff;
+	list-style: decimal;
+	list-style-position: inside;
+	text-align: left;
+	cursor: pointer;
+}
+.taskList li.first {
+	border-top: solid 1px #ffffff;
+}
+.taskList span {
+	display: block;
+	text-align: right;
+}
+.taskList span strong {
+	float: left;
+}
+.taskList i {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	background: url(../i/icon.png) no-repeat left top;
+	background-size: 15px 15px;
+	text-align: right;
+	margin-right: 5px;
+	vertical-align: -2px;
+}
+.taskList i.checkIcon {
+	background: url(../i/icon-check.png) no-repeat left top;
+	background-size: 15px 15px;
+}
+.taskList i.ongoingIcon {
+	background: url(../i/icon-ongoing.png) no-repeat left top;
+	background-size: 15px 15px;
+}
+.taskList i.failIcon {
+	background: url(../i/icon-fail.png) no-repeat left top;
+	background-size: 15px 15px;
+}
+.taskList li i {
+	float: right;
+	margin-top: 6px;
+}
+#taskTab {
+	border-bottom: solid 1px #ffffff;x
+}
+.tabWrapper {
+	display: none;
+}
+.tabWrapper.active {
+	display: block;
+}
+.overlay {
+	background:  url(../i/overlay-bg.png) left top no-repeat fixed;
+	width: 232px;
+	border: 1px solid #ffffff;
+	position: absolute;
+	top: 125px;
+	left: 44px;
+	z-index: 9999;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	display: none;
+}
+.overlay h1{
+	border-bottom: 1px solid #ffffff;
+	line-height: 29px;
+	font-size: 18px;
+	text-transform: uppercase;
+	text-align: center;
+}
+.overlay .overlay-taskName {
+	font-family: 'envy_code_rregular', Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	text-indent: 3px;
+	display: block;
+	width: 100%;
+	height: 39px;
+	color: #ffffff;
+	border: 0px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+	background: transparent;
+
+}
+.overlay .overlay-taskDate {
+	height: 30px;
+	border-bottom: 1px solid #ffffff;
+	font-size: 18px;
+	line-height: 29px;
+	position: relative;
+	text-indent: 3px;
+}
+.addBtn{
+	display: block;
+	width: 29px;
+	height: 29px;
+	background: url(../i/plus.png) center center no-repeat;
+	background-size: 20px 20px;
+	cursor: pointer;
+}
+.overlay .overlay-taskDate input {
+	border: 0px;
+	background: transparent;
+	height: 29px;
+	line-height: 29px;
+	float: right;
+}
+.overlay .overlay-taskTime {
+	height: 48px;
+	background: transparent url(../i/start-end-line.png) center center no-repeat;
+	background-size: 50% 50%;
+	border-bottom: solid 1px #ffffff;
+}
+.overlay .overlay-taskDate .addBtn {
+	float: right;
+}
+.overlay .overlay-taskTime .startTime {
+	position: relative;
+	float: left;
+	width: 50%;
+	height: 100%;
+}
+.overlay .overlay-taskTime .startTime span {
+	position: absolute;
+	right: 12px;
+}
+.overlay .overlay-taskTime .startTime .addBtn {
+	height: 48px;
+	position: absolute;
+	left: 0;
+}
+.overlay .overlay-taskTime .endTime {
+	position: relative;
+	float: right;
+	width: 50%;
+	height: 100%;
+}
+.overlay .overlay-taskTime .endTime span {
+	position: absolute;
+	left: 12px;
+	bottom: 0;
+}
+.overlay .overlay-taskTime .endTime .addBtn {
+	height: 48px;
+	position: absolute;
+	right: 0;
+}
+.overlay .overlay-checkPoint,
+.overlay .overlay-project,
+.overlay .overlay-projectStatus,
+.overlay .overlay-invite
+{
+	height: 30px;
+	line-height: 29px;
+	border-bottom: solid 1px #ffffff;
+	text-indent: 3px;
+}
+
+.overlay .overlay-confirmBtn{
+	height: 30px;
+	line-height: 29px;
+	text-align: center;
+	cursor: pointer;
+}
+.overlay .overlay-checkPoint .addBtn,
+.overlay .overlay-project .addBtn,
+.overlay .overlay-projectStatus .addBtn,
+.overlay .overlay-invite .addBtn,
+.overlay .toggleBtn {
+	float: right;
+} 
