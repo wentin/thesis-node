@@ -93,7 +93,7 @@
 		</div>
 
 		<div class="myProfile">
-			<img src="i/profile01.png" />
+			<img ng-src="{{userProfile._json['picture']}}" />
 			<i></i>
 			<p></p>
 		</div>
@@ -106,13 +106,14 @@
 		<div class="calendarWrapper">
 			<div class="calendar">
 				<div id="now" style="top: 1660px">NOW <i>16:36</i></div>
-				<div class="event left" style="top: 1425px; height: 225px;">
+				
+				<div class="event left entry" ng-repeat="event in eventList.items"  ng-style="getTopHeight(event)">
 					<div class="mark start"></div>
 					<div class="mark check"></div>
-					<h1>Thesis Presentation</h1>
+					<h1>{{event.summary}}</h1>
 					<div class="startEnd">
-						<span class="start">14:15</span>
-						<span class="end">16:30</span>
+						<span class="start" ng-bind="getHourMinute(event.start.dateTime)"></span>
+						<span class="end" ng-bind="getHourMinute(event.end.dateTime)"></span>
 					</div>
 					<div class="detailWrapper">
 						<div class="detail">

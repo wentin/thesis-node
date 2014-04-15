@@ -56,10 +56,10 @@
     color: rgba(255,255,255,0.2);
 }
 body {
-	font-family: 'envy_code_rregular', Arial, Helvetica, sans-serif;
+	font-family: 'envy_code_rregular', "Open Sans", sans-serif;
 	margin: 0 ;
 	padding: 0;
-	width: 872px;
+	/*width: 872px;*/
 	background-color: #000002;
 	color: #ffffff
 }
@@ -231,7 +231,7 @@ div.ul {
 	background-size: 320px 9px;
 	width: 320px;
 	height: 30px;
-	font-size: 12px;
+	font-size: 16px;
 	text-indent: 163px;
 	color: #dbdb41;
 	line-height: 36px;
@@ -247,7 +247,7 @@ div.ul {
 	top: -40px;
 	color: rgba(255,255,255,0.6);
 	line-height: 100px;
-	font-size: 12px;
+	font-size: 13px;
 }
 .timeRight {
 	position: relative;
@@ -266,6 +266,9 @@ div.ul {
 	border-radius: 3px;
 	border: solid 1px #ffffff;
 	z-index: 1;
+	overflow-y: hidden; 
+	overflow-x: hidden;/*
+	-webkit-overflow-scrolling: touch;*/
 }
 .event.left {
 	left: 5px;
@@ -274,12 +277,14 @@ div.ul {
 	right: 5px;
 }
 .event h1 {
-	height: 42px;
+	/*height: 42px;*/
+	min-height: 42px;
 	border-bottom: solid 1px #ffffff;
 	line-height: 20px;
 	font-size: 18px;
 	margin: 0;
 	padding: 0px 3px 0 3px;
+	text-transform: uppercase;
 }
 .event.side {
 	width: 34px;
@@ -341,12 +346,9 @@ div.ul {
 	bottom: 2px;
 }
 .event .detailWrapper {
-	position: absolute;
+	position: relative;
 	width: 148px;
 	height: auto;
-	top: 92px;
-	bottom: 0px;
-	overflow: hidden;
 }
 .event .detail {
 	height: 112px;
@@ -448,6 +450,7 @@ div.ul {
 }
 .taskList span strong {
 	float: left;
+	font-weight: 400;
 }
 .taskList i {
 	display: inline-block;
@@ -476,7 +479,9 @@ div.ul {
 	margin-top: 6px;
 }
 #taskTab {
-	border-bottom: solid 1px #ffffff;x
+	border-bottom: solid 1px #ffffff;
+	font-family: "Open Sans", sans-serif;
+	text-transform: lowercase;
 }
 .tabWrapper {
 	display: none;
@@ -486,6 +491,7 @@ div.ul {
 }
 .overlay {
 	background:  url(../i/overlay-bg.png) left top no-repeat fixed;
+	background-size: cover;
 	width: 232px;
 	border: 1px solid #ffffff;
 	position: absolute;
@@ -505,7 +511,7 @@ div.ul {
 	text-align: center;
 }
 .overlay .overlay-taskName {
-	font-family: 'envy_code_rregular', Arial, Helvetica, sans-serif;
+	font-family: 'envy_code_rregular', "Open Sans", sans-serif;
 	font-size: 18px;
 	text-indent: 3px;
 	display: block;

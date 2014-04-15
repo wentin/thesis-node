@@ -1,7 +1,3 @@
-// var io = require('socket.io'),
-// var connect = require('connect');
-// var app = connect().use(connect.static('public')).listen(8082);
-
 var express  = require('express');
 var app = express();
 var passport = require('passport')
@@ -19,7 +15,7 @@ app.configure(function() {
   app.use(express.session({ secret: 'keyboard cat' }));
   app.use(passport.initialize());
 });
-// app.listen(8082);
+
 var server = app.listen(8082, function() {
     console.log('Listening on port %d', server.address().port);
 });
@@ -46,6 +42,8 @@ passport.use(new GoogleStrategy({
         if (!user) {
             console.log('user is created!');
             models.newUser(profile);
+            var picture = profile._json['picture'];
+            console.log(picture);
             return done(null, profile);
         } else {
             console.log('user is alredy registered!');
@@ -55,11 +53,6 @@ passport.use(new GoogleStrategy({
     });
   }
   
-  /*function(accessToken, refreshToken, profile, done) {
-    profile.accessToken = accessToken;
-    return done(null, profile);
-  }*/
-
 ));
 
 function checkAuth(req, res, next) {
@@ -103,19 +96,36 @@ app.get('/api/calendarList', function(req, res){
 });
 
 app.get('/api/eventList', function(req, res){
-  var accessToken = req.session.access_token;
-    gcal(accessToken).events.list('primary', function(err, calendarList) {
+    var accessToken = req.session.access_token;
+
+    var today = new Date();
+    var lastYear = new Date();
+    lastYear.setMonth(lastYear.getMonth()-6)
+    // lastYear.setFullYear(lastYear.getFullYear() - 1);
+    console.log(lastYear);
+    var nextYear = new Date();
+    // nextYear.setFullYear(nextYear.getFullYear() + 1);
+    nextYear.setMonth(nextYear.getMonth()+6)
+
+    gcal(accessToken).events.list('primary', {
+          // maxResults:20,
+          singleEvents: true,
+          orderBy: 'startTime',
+          maxAttendees: 2,
+          timeMin: lastYear.toISOString(),
+          timeMax: nextYear.toISOString(),
+        }, function(err, eventList) {
         if(err) return res.send(500,err);
-        res.send(calendarList);
+        //console.log(eventList);
+        res.send(eventList);
     });
+
 });
 
 
 app.get('/api/userProfile', function(req, res){
   var accessToken = req.session.access_token;
-
   res.send(userProfile);
-
 });
 
 

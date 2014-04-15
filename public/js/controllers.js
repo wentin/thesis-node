@@ -1,8 +1,77 @@
-function MainCntl($scope, $http, calendarList, userProfile) {
+function dateDiff(date1,date2,interval) {
+    var second=1000, minute=second*60, hour=minute*60, day=hour*24, week=day*7;
+    date1 = new Date(date1);
+    date2 = new Date(date2);
+    var timediff = date2 - date1;
+    if (isNaN(timediff)) return NaN;
+    switch (interval) {
+        case "years": return date2.getFullYear() - date1.getFullYear();
+        case "months": return (
+            ( date2.getFullYear() * 12 + date2.getMonth() )
+            -
+            ( date1.getFullYear() * 12 + date1.getMonth() )
+        );
+        case "weeks"  : return Math.floor(timediff / week);
+        case "days"   : return Math.floor(timediff / day); 
+        case "hours"  : return Math.floor(timediff / hour); 
+        case "minutes": return Math.floor(timediff / minute);
+        case "seconds": return Math.floor(timediff / second);
+        default: return undefined;
+    }
+}
+
+
+
+function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	$scope.calendarList = calendarList;
 	$scope.userProfile = userProfile;
-	//console.log(eventList);
+	$scope.eventList = eventList;
+	// console.log(eventList.items[0].start.dateTime);
+	var firstDay = new Date(eventList.items[0].start.dateTime);
+	firstDay.setSeconds(0);
+	firstDay.setMinutes(0);
+	firstDay.setHours(0);
+	console.log(firstDay);
+	var lastDay = new Date(eventList.items[eventList.items.length-1].start.dateTime);
+	lastDay.setSeconds(59);
+	lastDay.setMinutes(59);
+	lastDay.setHours(23);
+	console.log(lastDay);
+	var days = dateDiff(firstDay, lastDay, 'days');
+	console.log(days);
+
+
+	var calHeight = dateDiff(firstDay, lastDay, 'days') * 2400;
+	console.log(calHeight);
+	var oneDayText = "00:00<br>01:00<br>02:00<br>03:00<br>04:00<br>05:00<br>06:00<br>07:00<br>08:00<br>09:00<br>10:00<br>11:00<br>12:00<br>13:00<br>14:00<br>15:00<br>16:00<br>17:00<br>18:00<br>19:00<br>20:00<br>21:00<br>22:00<br>23:00<br>";
+	var html = '';
+	for (var i=0;i<days;i++){ 
+		html += oneDayText;
+	}
+	$('.timeLeft, .timeRight').html(html);
+
+	$scope.getHourMinute = function (time) {
+        var d = new Date(time);
+        h = (h = d.getHours()) < 10 ? '0' + h : h;
+        m = (m = d.getMinutes()) < 10 ? '0' + m : m;
+        var hm = h + ':' + m;
+        return hm;
+        //return time;
+    };
+    
+    $scope.getTopHeight = function (event) {
+    	var startTime = event.start.dateTime;
+    	var endTime = event.end.dateTime;
+    	var top = dateDiff(firstDay, startTime, 'minutes') / 60 * 100;
+    	var height = dateDiff(startTime, endTime, 'minutes') / 60 * 100;
+        return {	
+        	top: top + 'px',
+        	height: height + 'px'
+        };
+        //return time;
+    };
 	angular.element(document).ready(function () {
+        
         //Iscroll for the calendar wrapper
 		var calScroll = new IScroll('.calendarWrapper', {
 		    mouseWheel: true,
@@ -10,8 +79,20 @@ function MainCntl($scope, $http, calendarList, userProfile) {
 		    fadeScrollbars: true,
 		});
 
+		var today = new Date();
+		var nowTop = dateDiff(firstDay, today, 'minutes') * 100 / 60 - 21;;
+		//update div#now with current time every 60s
+		setInterval(function(){
+			today = new Date();
+			nowTop = dateDiff(firstDay, today, 'minutes') * 100 / 60 - 21;
+			$('#now').css('top', nowTop);
+			var hour = today.getHours();
+			var minute = today.getMinutes();
+			$('#now i').html( hour + ":" + minute );
+		},60);
+
 	    // scroll to put the "now" in center
-	    calScroll.scrollTo(0, -1660 + 214, 200);
+	    calScroll.scrollTo(0,  214 - nowTop, 200);
 
 	    function Carousel(element)
 	    {
@@ -162,4 +243,5 @@ function MainCntl($scope, $http, calendarList, userProfile) {
 	        $(href).addClass('active').siblings('.tabWrapper').removeClass('active');
 	    });
     });
+
 }
