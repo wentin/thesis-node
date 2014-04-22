@@ -73,18 +73,18 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	angular.element(document).ready(function () {
         
         //Iscroll for the calendar wrapper
-		var calScroll = new IScroll('.calendarWrapper', {
+		/*var calScroll = new IScroll('.calendarWrapper', {
 		    mouseWheel: true,
 		    scrollbars: true,
 		    fadeScrollbars: true,
-		});
+		});*/
 
 		var today = new Date();
-		var nowTop = dateDiff(firstDay, today, 'minutes') * 100 / 60 - 21;;
+		var nowTop = dateDiff(firstDay, today, 'minutes') * 100 / 60 - 23;;
 		//update div#now with current time every 60s
 		setInterval(function(){
 			today = new Date();
-			nowTop = dateDiff(firstDay, today, 'minutes') * 100 / 60 - 21;
+			nowTop = dateDiff(firstDay, today, 'minutes') * 100 / 60 - 23;
 			$('#now').css('top', nowTop);
 			var hour = today.getHours();
 			var minute = today.getMinutes();
@@ -92,7 +92,12 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 		},60);
 
 	    // scroll to put the "now" in center
-	    calScroll.scrollTo(0,  214 - nowTop, 200);
+	    /*calScroll.scrollTo(0,  214 - nowTop, 200);*/
+		$('.calendarWrapper').scrollTop( nowTop- 190 );
+
+		$('.todayButton').bind('tapone', function(){
+			$('.calendarWrapper').scrollTop( nowTop- 190 );			
+		})
 
 	    function Carousel(element)
 	    {

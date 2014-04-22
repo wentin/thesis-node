@@ -24,6 +24,7 @@ var userProfile;
 passport.use(new GoogleStrategy({
     clientID: config.consumer_key,
     clientSecret: config.consumer_secret,
+    // callbackURL: "http://p.ngrok.com/auth/callback",
     callbackURL: "http://localhost:8082/auth/callback",
     scope: ['openid', 'email', 'https://www.googleapis.com/auth/calendar'] 
   },
