@@ -70,6 +70,11 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
         };
         //return time;
     };
+
+    $scope.moduleOn = function() {
+	    $('.module.editAfter').addClass('on');	
+    };
+
 	angular.element(document).ready(function () {
         
         //Iscroll for the calendar wrapper
@@ -80,7 +85,7 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 		});*/
 
 		var today = new Date();
-		var nowTop = dateDiff(firstDay, today, 'minutes') * 100 / 60 - 23;;
+		var nowTop = dateDiff(firstDay, today, 'minutes') * 100 / 60 - 23;
 		//update div#now with current time every 60s
 		setInterval(function(){
 			today = new Date();
@@ -99,6 +104,9 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 			$('.calendarWrapper').scrollTop( nowTop- 190 );			
 		})
 
+		$('.inviteButton').bind('tapone', function(){
+			$(this).toggleClass('on').toggleClass('off');		
+		})
 	    function Carousel(element)
 	    {
 	        var self = this;
@@ -234,19 +242,25 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	    var carousel = new Carousel("#wrapper");
 	    carousel.init();
 
-	    $('.addButton, .event').bind('tapone', function(){
-	        $('.overlay').show();
+	    $('.addButton').bind('tapone', function(){
+	        $('.module.add').addClass('on');
 	    })
 
-	    $('.overlay-confirmBtn').bind('tapone', function(){
-	        $('.overlay').hide();        
+	    $('.taskTime').bind('tapone', function(){
+	        $('.module.editTime').addClass('on');
 	    })
+
+	    $('.module .ok, .module .cancel').bind('tapone', function(){
+	        $(this).parents('.module').removeClass('on');
+	    })
+
 	    $('.tabs .tab').click(function(e){
 	        e.preventDefault();
 	        var href = $(this).attr('href');
 	        $(this).addClass('active').siblings('.tab').removeClass('active');
 	        $(href).addClass('active').siblings('.tabWrapper').removeClass('active');
 	    });
+
     });
 
 }

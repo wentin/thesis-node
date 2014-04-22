@@ -1,5 +1,7 @@
 $sourceSans:'Source Sans Pro', sans-serif;
 $milk: #fbf2e3;
+$green: #dbdb41;
+$dark: #293162;
 *{
   -webkit-box-sizing:border-box;
   -moz-box-sizing:border-box;
@@ -116,16 +118,16 @@ a {
 .leftPanel {
 	width: 276px;
 	height: 548px;
-	background: url(../i/background.png) no-repeat -44px top;
-	background-size: 960px 548px;
+	background: url(../i/background.png) no-repeat left top;
+	background-size: 872px 548px;
 	position: relative;
 	text-align: center;
 }
 .rightPanel {
 	width: 276px;
 	height: 548px;
-	background: url(../i/background.png) no-repeat -640px top;
-	background-size: 960px 548px;
+	background: url(../i/background.png) no-repeat right top;
+	background-size: 872px 548px;
 	float: left;
 	position: relative;
 	left: 596px;
@@ -563,77 +565,6 @@ div.ul {
 	background-size: 20px 20px;
 	cursor: pointer;
 }
-.overlay .overlay-taskDate input {
-	border: 0px;
-	background: transparent;
-	height: 29px;
-	line-height: 29px;
-	float: right;
-}
-.overlay .overlay-taskTime {
-	height: 48px;
-	background: transparent url(../i/start-end-line.png) center center no-repeat;
-	background-size: 50% 50%;
-	border-bottom: solid 1px $milk;
-}
-.overlay .overlay-taskDate .addBtn {
-	float: right;
-}
-.overlay .overlay-taskTime .startTime {
-	position: relative;
-	float: left;
-	width: 50%;
-	height: 100%;
-}
-.overlay .overlay-taskTime .startTime span {
-	position: absolute;
-	right: 12px;
-}
-.overlay .overlay-taskTime .startTime .addBtn {
-	height: 48px;
-	position: absolute;
-	left: 0;
-}
-.overlay .overlay-taskTime .endTime {
-	position: relative;
-	float: right;
-	width: 50%;
-	height: 100%;
-}
-.overlay .overlay-taskTime .endTime span {
-	position: absolute;
-	left: 12px;
-	bottom: 0;
-}
-.overlay .overlay-taskTime .endTime .addBtn {
-	height: 48px;
-	position: absolute;
-	right: 0;
-}
-.overlay .overlay-checkPoint,
-.overlay .overlay-project,
-.overlay .overlay-projectStatus,
-.overlay .overlay-invite
-{
-	height: 30px;
-	line-height: 29px;
-	border-bottom: solid 1px $milk;
-	text-indent: 3px;
-}
-
-.overlay .overlay-confirmBtn{
-	height: 30px;
-	line-height: 29px;
-	text-align: center;
-	cursor: pointer;
-}
-.overlay .overlay-checkPoint .addBtn,
-.overlay .overlay-project .addBtn,
-.overlay .overlay-projectStatus .addBtn,
-.overlay .overlay-invite .addBtn,
-.overlay .toggleBtn {
-	float: right;
-} 
 .calHead {
 	position: absolute;
 	top: 70px;
@@ -703,5 +634,310 @@ div.ul {
 		width: 44px;
 		text-align: center;
 		font-size: 30px;
+	}
+}
+.module.on,
+.module.full.on {
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+	-o-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+	opacity: 1;
+	display: block;
+}
+.module {
+	position: absolute;
+	z-index: 9999;
+	top: 140px;
+	left:0;
+	bottom: 0;
+	right:0;
+	width: 100%;
+	height: auto;
+	background: url(../i/add-bg.png) no-repeat left top;
+	background-size: contain;
+	text-align: center;
+	-webkit-transform: translate3d(0, 408px, 0);
+	-moz-transform: translate3d(0, 408px, 0);
+	-ms-transform: translate3d(0, 408px, 0);
+	-o-transform: translate3d(0, 408px, 0);
+	transform: translate3d(0, 408px, 0);
+	-webkit-transition: all 0.4s ease;
+	-moz-transition: all 0.4s ease;
+	-ms-transition: all 0.4s ease;
+	-o-transition: all 0.4s ease;
+	transition: all 0.4s ease;
+	.cancel {
+		position: absolute;
+		bottom:15px;
+		left: 15px;
+		display: block;
+		width: 40px;
+		height: 40px;
+		background: url(../i/cancel.png) no-repeat center center;
+		background-size: contain;
+	}
+	.ok {
+		position: absolute;
+		bottom:15px;
+		right: 15px;
+		display: block;
+		width: 40px;
+		height: 40px;
+		background: url(../i/ok.png) no-repeat center center;
+		background-size: contain;
+	}
+	input.taskName {
+		line-height: 50px;
+		font-size: 20px;
+		font-weight: 600;
+		width: 100%;
+		text-align: center;
+		border: none;
+		background: rgba(0,0,0,0);
+		color: $milk;
+		margin-top: 10px;
+	}
+	.taskTime {
+		line-height: 55px;
+		font-size: 30px;
+		font-weight: 300;
+	}
+	.taskLength {
+		line-height: 55px;
+		font-size: 15px;
+		font-weight: 400;
+		span {
+			font-weight: 300;
+			font-size: 30px;
+		}
+	}
+	.taskProject {
+		line-height: 45px;
+		font-weight: 300;
+		font-size: 18px;
+		span {
+			display: block;
+			float: left;
+			width: 50%;
+		}
+		.taskProjectName {
+			text-align: right;
+		}
+		.percentage {
+			font-size: 15px;
+			font-weight: 400;
+			text-align: left;
+			text-indent: 30px;
+			i {
+				font-size: 30px;
+				font-weight: 300;
+				font-style: normal;
+			}
+		}
+	}
+	.taskInvitation {
+		line-height: 50px;
+		font-weight: 300;
+		font-size: 18px;
+		span {
+			display: block;
+			float: left;
+			width: 50%;
+		}
+		.inivitation {
+			text-align: right;
+		}
+		.inviteWrapper {
+			text-align: left;
+			text-indent: 30px;
+		}
+		.inviteButton {
+			height: 30px;
+			width: 50px;
+			position: relative;
+			display: inline-block;
+			border-radius: 16px;
+			margin-bottom: -10px;
+			-webkit-transition: all 1s ease;
+			-moz-transition: all 1s ease;
+			-ms-transition: all 1s ease;
+			-o-transition: all 1s ease;
+			transition: all 1s ease;
+			i {
+				display: block;
+				position: absolute;
+				width: 26px;
+				height: 26px;
+				top: 1px;
+				left: 1px;
+				border-radius: 15px;
+				-webkit-transition: all 1s ease;
+				-moz-transition: all 1s ease;
+				-ms-transition: all 1s ease;
+				-o-transition: all 1s ease;
+				transition: all 1s ease;
+			}
+		}
+		.inviteButton.off {
+			border: solid 1px $milk;
+			i {
+				background-color: $milk;				
+			}
+		}
+		.inviteButton.on {
+			border: solid 1px $green;
+			i {
+				background-color: $green;
+				left:auto;
+				right: 1px;				
+			}
+		}
+	}
+}
+.module.editAfter {
+
+	.projectProgress {
+		margin: 0 auto;
+		width: 195px;
+		height: 14px;
+		border: solid 1px $milk;
+		border-radius: 8px;
+		overflow: hidden;
+		position: relative;
+		.projectBefore {
+			width: 25%;
+			height: 100%;
+			float: left;
+			background-color: $milk;
+		}
+		.projectAfter {
+			width: 15%;
+			height: 100%;
+			float: left;
+			background-color: $milk;
+			opacity: 0.5;
+		}
+	}
+	.taskProject {
+		span {
+			float: none;
+			display: inline-block;
+			width: 45%;
+		}
+		.taskProjectName {
+		}
+		.percentage {
+			text-indent: 20px;
+		}
+	}
+	.statusSlider {
+		margin: 35px auto 0 auto;
+		width: 195px;
+		height: 23px;
+		border-radius: 12px;
+		border: solid 1px $milk;
+		position: relative;
+		.slider {
+			width: 30px;
+			height: 30px;
+			border-radius: 15px;
+			border: solid 5px $milk;
+			position: absolute;
+			left: 80px;
+			top: -4px;
+		}
+		.failIcon {
+			position: absolute;
+			left: -1px;
+			top: -1px;
+			width: 23px;
+			height: 23px;
+			background: url(../i/icon-fail.png) no-repeat center center;
+			background-size: cover;
+		}
+		.successIcon {
+			position: absolute;
+			right: -1px;
+			top: -1px;
+			width: 23px;
+			height: 23px;
+			background: url(../i/icon-check.png) no-repeat center center;
+			background-size: cover;
+		}
+	}
+}
+
+.module.full {
+	background: url(../i/module-full.png) no-repeat left top;
+	background-size: cover;
+	top: 0;
+	-webkit-transform: translate3d(0, 548px, 0);
+	-moz-transform: translate3d(0, 548px, 0);
+	-ms-transform: translate3d(0, 548px, 0);
+	-o-transform: translate3d(0, 548px, 0);
+	transform: translate3d(0, 548px, 0);
+	.timeLegend {
+		color: $milk;
+		opacity: 0.6;
+		font-weight: 700;
+		font-size: 12px;
+		line-height: 40px;
+		margin-top: 10px;
+		letter-spacing: 7px;
+	}
+	.hourWrapper {
+		float: left;
+		width: 50%;
+		font-size: 18px;
+		font-weight: 300;
+		div {
+			text-align: right;
+			line-height: 36px;
+			padding: 9px 20px 9px 0;
+			margin: -18px 0 -9px 0;
+		}
+		div:hover,
+		div.select {
+			font-weight: 700;
+			color: $dark;
+			background-color: $milk;
+		}
+	}
+	.minWrapper {
+		float: left;
+		width: 50%;
+		font-size: 18px;
+		font-weight: 300;
+		div {
+			text-align: left;
+			line-height: 36px;
+			padding: 9px 0 9px 20px;
+			margin: -18px 0 -9px 0;
+		}
+		div:hover,
+		div.select {
+			font-weight: 700;
+			color: $dark;
+			background-color: $milk;
+		}
+	}
+	.ampmswitch {
+		width: 30px;
+		height: 30px;
+		line-height: 30px;
+		text-align: center;
+		border-radius: 16px;
+		border: solid 1px $milk;
+		font-weight: 700;
+		font-size: 12px;
+		position: absolute;
+		bottom: 35px;
+		left: 145px;
+	}
+	.ampmswitch:hover {
+		background-color: $milk;
+		color: $dark;
 	}
 }

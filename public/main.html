@@ -55,43 +55,77 @@
 		</div>
 	</div>
 	<div class="mainPanel panel">
-		<div class="overlay">
-			<h1>ADD TASK</h1>
-			<input type="text" class="overlay-taskName" placeholder="TASK NAME">
-			<div class="overlay-taskDate">DATE
-				<input type="date" class="unstyled">
+		<div class="module add">
+			<div class="cancel"></div>
+			<div class="ok"></div>
+			<input type="text" class="taskName" placeholder="add task name">
+			<div class="taskTime">16:45</div>
+			<div class="taskLength"><span class="hour">2</span> h <span class="mins">15</span> m</div>
+			<div class="taskProject">
+				<span class="taskProjectName">Belong to project</span>
+				<span class="percentage"><i>15</i>%</span>
 			</div>
-			<div class="overlay-taskTime">
-				<div class="startTime">
-					<span>14:00</span>
-					<div class="addBtn"></div>
-				</div>
-				<div class="endTime">
-					<span>15:00</span>
-					<div class="addBtn"></div>
-				</div>
-			</div>
-			<div class="overlay-checkPoint">
-				CHECKPOINT
-				<div class="addBtn"></div>
-			</div>
-			<div class="overlay-project">
-				PROJECT
-				<div class="addBtn"></div>
-			</div>
-			<div class="overlay-projectStatus">
-				PROJECT STATUS
-				<div class="addBtn"></div>
-			</div>
-			<div class="overlay-invite">
-				INVITATION
-				<div class="toggleBtn"></div>
-			</div>
-			<div class="overlay-confirmBtn">
-				YES, ADD IT
+			<div class="taskInvitation">
+				<span class="inivitation">Invitation</span>
+				<span class="inviteWrapper">
+					<div class="inviteButton off"><i></i></div>
+				</span>
 			</div>
 		</div>
-
+		<div class="module editAfter">
+			<div class="cancel"></div>
+			<div class="ok"></div>
+			<input type="text" class="taskName" placeholder="add task name" value="Thesis presentation">
+			<div class="taskTime">16:45</div>
+			<div class="taskLength"><span class="hour">2</span> h <span class="mins">15</span> m</div>
+			<div class="taskProject">
+				<span class="taskProjectName">Thesis</span>
+				<span class="percentage"><i>15</i>%</span>
+			</div>
+			<div class="projectProgress">
+				<div class="projectBefore"></div>
+				<div class="projectAfter"></div>
+			</div>
+			<div class="statusSlider">
+				<div class="failIcon"></div>
+				<div class="successIcon"></div>
+				<div class="slider"></div>
+			</div>
+		</div>
+		<div class="module full on editTime">
+			<div class="cancel"></div>
+			<div class="ok"></div>
+			<div class="timeLegend">H : M</div>
+			<div class="hourWrapper">
+				<div>00</div>
+				<div>01</div>
+				<div>02</div>
+				<div class="select">03</div>
+				<div>04</div>
+				<div>05</div>
+				<div>06</div>
+				<div>07</div>
+				<div>08</div>
+				<div>09</div>
+				<div>10</div>
+				<div>11</div>
+			</div>
+			<div class="minWrapper">
+				<div>00</div>
+				<div>05</div>
+				<div>10</div>
+				<div>15</div>
+				<div>20</div>
+				<div>25</div>
+				<div>30</div>
+				<div>35</div>
+				<div class="select">40</div>
+				<div>45</div>
+				<div>50</div>
+				<div>55</div>
+			</div>
+			<div class="ampmswitch">AM</div>
+		</div>
 		<div class="myProfile">
 			<img ng-src="{{userProfile._json['picture']}}" />
 			<i></i>
@@ -117,7 +151,10 @@
 			<div class="calendar">
 				<div id="now" style="top: 1660px">NOW <i>16:36</i></div>
 				
-				<div class="event left entry" ng-repeat="event in eventList.items"  ng-style="getTopHeight(event)">
+				<div class="event left entry" 
+				ng-repeat="event in eventList.items"
+				ng-click = "moduleOn()"  
+				ng-swipe-right="moduleOn()"  ng-style="getTopHeight(event)">
 					<div class="mark start"></div>
 					<div class="mark check"></div>
 					<h1>{{event.summary}}</h1>
