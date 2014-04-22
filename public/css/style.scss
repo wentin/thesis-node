@@ -636,7 +636,17 @@ div.ul {
 		font-size: 30px;
 	}
 }
-.module.on,
+.module.on {
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+	-o-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+	opacity: 1;
+	background: url(../i/add-bg.png) no-repeat left 0;
+	background-size: cover;
+	display: block;
+}
 .module.full.on {
 	-webkit-transform: translate3d(0, 0, 0);
 	-moz-transform: translate3d(0, 0, 0);
@@ -644,6 +654,8 @@ div.ul {
 	-o-transform: translate3d(0, 0, 0);
 	transform: translate3d(0, 0, 0);
 	opacity: 1;
+	background: url(../i/module-full.png) no-repeat left 0;
+	background-size: cover;
 	display: block;
 }
 .module {
@@ -655,8 +667,8 @@ div.ul {
 	right:0;
 	width: 100%;
 	height: auto;
-	background: url(../i/add-bg.png) no-repeat left top;
-	background-size: contain;
+	background: url(../i/add-bg.png) no-repeat left -408px;
+	background-size: cover;
 	text-align: center;
 	-webkit-transform: translate3d(0, 408px, 0);
 	-moz-transform: translate3d(0, 408px, 0);
@@ -870,7 +882,7 @@ div.ul {
 }
 
 .module.full {
-	background: url(../i/module-full.png) no-repeat left top;
+	background: url(../i/module-full.png) no-repeat left -548px;
 	background-size: cover;
 	top: 0;
 	-webkit-transform: translate3d(0, 548px, 0);
