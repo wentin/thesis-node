@@ -101,12 +101,12 @@ app.get('/api/eventList', function(req, res){
 
     var today = new Date();
     var lastYear = new Date();
-    lastYear.setMonth(lastYear.getMonth()-2)
+    // lastYear.setMonth(lastYear.getMonth()-2)
     // lastYear.setFullYear(lastYear.getFullYear() - 1);
     console.log(lastYear);
     var nextYear = new Date();
     // nextYear.setFullYear(nextYear.getFullYear() + 1);
-    nextYear.setMonth(nextYear.getMonth()+2)
+    nextYear.setMonth(nextYear.getMonth()+1)
 
     gcal(accessToken).events.list('primary', {
           // maxResults:20,
