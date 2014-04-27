@@ -24,8 +24,8 @@ var userProfile;
 passport.use(new GoogleStrategy({
     clientID: config.consumer_key,
     clientSecret: config.consumer_secret,
-    // callbackURL: "http://p.ngrok.com/auth/callback",
-    callbackURL: "http://localhost:8082/auth/callback",
+    callbackURL: "http://p.ngrok.com/auth/callback",
+    // callbackURL: "http://localhost:8082/auth/callback",
     scope: ['openid', 'email', 'https://www.googleapis.com/auth/calendar'] 
   },
 
@@ -101,12 +101,12 @@ app.get('/api/eventList', function(req, res){
 
     var today = new Date();
     var lastYear = new Date();
-    lastYear.setMonth(lastYear.getMonth()-6)
+    lastYear.setMonth(lastYear.getMonth()-2)
     // lastYear.setFullYear(lastYear.getFullYear() - 1);
     console.log(lastYear);
     var nextYear = new Date();
     // nextYear.setFullYear(nextYear.getFullYear() + 1);
-    nextYear.setMonth(nextYear.getMonth()+6)
+    nextYear.setMonth(nextYear.getMonth()+2)
 
     gcal(accessToken).events.list('primary', {
           // maxResults:20,
