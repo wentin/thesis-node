@@ -250,8 +250,128 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	        $('.module.editTime').addClass('on');
 	    })
 
+
+	    $('.taskLength').bind('tapone', function(){
+	        $('.module.editLength').addClass('on');
+	        var currentHour = $(this).prev('.taskTime').children('span:eq(0)').html();
+	        var currentMin = $(this).prev('.taskTime').children('span:eq(1)').html();
+	        var currentDurationHour = $(this).children('span:eq(0)').html();
+	        var currentDurationMin = $(this).children('span:eq(1)').html();
+
+	        var iniEndTimeHour = parseInt(currentHour) + parseInt(currentDurationHour);
+	        var iniEndTimeMin = parseInt(currentMin) + parseInt(currentDurationMin);
+	        if(iniEndTimeMin >= 60) {
+	        	iniEndTimeMin -= 60;
+	        	iniEndTimeHour += 1;
+	        }
+	        var iniEndTimeHour = (iniEndTimeHour > 9)?iniEndTimeHour:'0'+iniEndTimeHour;
+	        var iniEndTimeMin = (iniEndTimeMin > 9)?iniEndTimeMin:'0'+iniEndTimeMin;
+	        $('.endTime').html('<span>'+iniEndTimeHour+'</span>'+':'+'<span>'+iniEndTimeMin+'</span>');
+	        $('.length').html('<span>'+currentDurationHour+'</span> h <span>'+currentDurationMin+'</span> m');
+
+	        setClock(iniEndTimeHour, currentMin);
+	        console.log(currentHour);
+	    })
+
+	    function setClock(h, m) {
+	    	if ( h >= 12) {
+	    		h -= 12;
+	    	}
+	    	hDeg = h/12*360 + m/60*30 - 90;
+	    	mDeg = m/60*360 - 90;
+
+	    	var hour = $('.hourHand')[0];
+	    	var min = $('.minHand')[0];
+
+		    hour.style.webkitTransform = 'rotate('+hDeg+'deg)'; 
+		    hour.style.mozTransform    = 'rotate('+hDeg+'deg)'; 
+		    hour.style.msTransform     = 'rotate('+hDeg+'deg)'; 
+		    hour.style.oTransform      = 'rotate('+hDeg+'deg)'; 
+		    hour.style.transform       = 'rotate('+hDeg+'deg)'; 
+		    min.style.webkitTransform = 'rotate('+mDeg+'deg)'; 
+		    min.style.mozTransform    = 'rotate('+mDeg+'deg)'; 
+		    min.style.msTransform     = 'rotate('+mDeg+'deg)'; 
+		    min.style.oTransform      = 'rotate('+mDeg+'deg)'; 
+		    min.style.transform       = 'rotate('+mDeg+'deg)'; 
+	    }
+	    var currentHeight = $('.lengthBar').height();
+	    var currentEndHour = $('.taskTime span:eq(0)').html(),
+		    currentEndMin = $('.taskTime span:eq(1)').html();
+	    Hammer($('.clock').get(0)).on("drag dragstart dragend dragup dragdown", function (event) {
+	        event.gesture.preventDefault();
+		    switch(event.type) {
+		        case 'touch':
+		             // lastScale = scale;
+		             // console.log(currentHeight);
+		             break;
+		        case 'drag':
+		             var posY = event.gesture.deltaY;
+		             //var clockY = posY + 234;
+		             var lengthBarHeight = posY + currentHeight;
+		             $('.lengthBar').css("height", lengthBarHeight+"px");
+
+		             var durationHour = Math.floor(lengthBarHeight/120);
+		             var durationMin = lengthBarHeight/2 - durationHour*60;
+		             var clockHour = parseInt(currentEndHour) + durationHour;
+		             var clockMin = parseInt(currentEndMin) + durationMin;
+		             if(clockMin >= 60) {
+		             	clockMin -= 60;
+		             	clockHour += 1;
+		             }
+	        		 setClock(clockHour, clockMin);
+	        		 clockMin = Math.floor(clockMin);
+	        		 clockMin = (clockMin > 9)?clockMin:'0'+clockMin;
+	        		 clockHour = (clockHour > 9)?clockHour:'0'+clockHour;
+	        		$('.endTime').html('<span>'+clockHour+'</span>'+':'+'<span>'+clockMin+'</span>');
+
+	        		 durationMin = Math.floor(durationMin);
+	        		 durationMin = (durationMin > 9)?durationMin:'0'+durationMin;
+	        		 durationHour = (durationHour > 9)?durationHour:'0'+durationHour;
+	        		$('.length').html('<span>'+durationHour+'</span> h <span>'+durationMin+'</span> m');
+
+		             console.log(clockMin);
+		             break;
+		        case 'dragstart':
+		             currentHeight = $('.lengthBar').height();
+		             currentEndHour = $('.taskTime span:eq(0)').html();
+		             currentEndMin = $('.taskTime span:eq(1)').html();
+		             // console.log('start' + currentHeight);
+		             break;
+		        case 'dragend':
+		             // console.log('dragend!');
+		             break;
+		        case 'dragup':
+		             // console.log('dragup!');
+		             break;
+		        case 'dragdown':
+		             // console.log('dragdown!');
+		             break;
+		        case 'transform':
+		             console.log('transform!');
+		             // var posiX = event.gesture.center.pageX;
+		             // var posiY = event.gesture.center.pageY;
+
+		             break;                
+		    }     
+		});
+		
+	    $('.module.editLength .ok').bind('tapone', function(){
+	        var duration = $('.module.on .length').html();
+	        $('.module.on .taskLength').html(duration);
+	    })
+
 	    $('.module .ok, .module .cancel').bind('tapone', function(){
 	        $(this).parents('.module').removeClass('on');
+	    })
+
+	    $('.hourWrapper div, .minWrapper div').bind('tapone', function(){
+	        $(this).addClass('select').siblings('div').removeClass('select');
+	    })
+
+	    $('.module.editTime .ok').bind('tapone', function(){
+	        var hour = $('.hourWrapper div.select').text();
+	        var min = $('.minWrapper div.select').text();
+	        $('.module.on .taskTime').html('<span>'+hour+'</span>'+':'+'<span>'+min+'</span>');
 	    })
 
 	    $('.tabs .tab').click(function(e){

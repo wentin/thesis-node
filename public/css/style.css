@@ -616,17 +616,6 @@ overflow-y: hidden; */
   background-size: cover;
   display: block; }
 
-.module.full.on {
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-  opacity: 1;
-  background: url(../i/module-full.png) no-repeat left 0;
-  background-size: cover;
-  display: block; }
-
 .module {
   position: absolute;
   z-index: 9999;
@@ -813,6 +802,17 @@ overflow-y: hidden; */
     background: url(../i/icon-check.png) no-repeat center center;
     background-size: cover; }
 
+.module.full.on {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+  background: url(../i/module-full.png) no-repeat left 0;
+  background-size: cover;
+  display: block; }
+
 .module.full {
   background: url(../i/module-full.png) no-repeat left -548px;
   background-size: cover;
@@ -875,3 +875,75 @@ overflow-y: hidden; */
   .module.full .ampmswitch:hover {
     background-color: #fbf2e3;
     color: #293162; }
+
+.module.editLength .lengthBar {
+  width: 25%;
+  height: 50%;
+  position: relative;
+  top: 0;
+  margin: 0 auto;
+  background-color: #fbf2e3; }
+  .module.editLength .lengthBar .length {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: #293162;
+    font-weight: 400;
+    font-size: 15px; }
+    .module.editLength .lengthBar .length span {
+      font-weight: 300;
+      font-size: 26px; }
+.module.editLength .clock {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  background-color: #fbf2e3;
+  bottom: -40px;
+  border: solid 1px #293162; }
+  .module.editLength .clock .minHand {
+    width: 80%;
+    position: absolute;
+    border-radius: 2px;
+    top: 50%;
+    left: 10%;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg); }
+  .module.editLength .clock .minHand::before {
+    content: '';
+    height: 4px;
+    top: -2px;
+    width: 53%;
+    border-radius: 3px;
+    position: absolute;
+    right: 0;
+    background-color: #293162; }
+  .module.editLength .clock .hourHand {
+    width: 60%;
+    position: absolute;
+    border-radius: 2px;
+    top: 50%;
+    left: 20%; }
+  .module.editLength .clock .hourHand::before {
+    content: '';
+    height: 4px;
+    top: -2px;
+    width: 50%;
+    border-radius: 3px;
+    position: absolute;
+    right: 0;
+    background-color: #293162; }
+.module.editLength .endTime {
+  border-bottom: solid 1px #fbf2e3;
+  width: 150%;
+  left: 100%;
+  bottom: 0;
+  font-size: 15px;
+  font-weight: 300;
+  text-align: center;
+  position: absolute;
+  color: #fbf2e3;
+  padding-bottom: 3px; }
