@@ -83,7 +83,7 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 		    scrollbars: true,
 		    fadeScrollbars: true,
 		});*/
-
+		var panelSwitch = true;
 		var today = new Date();
 		var nowTop = dateDiff(firstDay, today, 'minutes') * 100 / 60 - 23;
 		//update div#now with current time every 60s
@@ -188,52 +188,54 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	            // console.log(ev);
 	            // disable browser scrolling
 	            ev.gesture.preventDefault();
+	            if(panelSwitch){
+		            switch(ev.type) {
+		                case 'dragright':
+		                case 'dragleft':
+		                    // stick to the finger
+		                    var drag_offset = ev.gesture.deltaX;
 
-	            switch(ev.type) {
-	                case 'dragright':
-	                case 'dragleft':
-	                    // stick to the finger
-	                    var drag_offset = ev.gesture.deltaX;
+		                    // slow down at the first and last pane
+		                    if((current_pane == 0 && ev.gesture.direction == "right") ||
+		                        (current_pane == 2 && ev.gesture.direction == "left")) {
+		                        drag_offset *= .4;
+		                    }
+		                    if (current_pane == 0){
+				            	pane_offset = 0;
+				            } else if (current_pane == 1){
+				            	pane_offset = -276;
+				            } else if (current_pane == 2){
+				            	pane_offset = -552;
+				            }
+		                    setContainerOffset(drag_offset + pane_offset);
+		                    break;
 
-	                    // slow down at the first and last pane
-	                    if((current_pane == 0 && ev.gesture.direction == "right") ||
-	                        (current_pane == 2 && ev.gesture.direction == "left")) {
-	                        drag_offset *= .4;
-	                    }
-	                    if (current_pane == 0){
-			            	pane_offset = 0;
-			            } else if (current_pane == 1){
-			            	pane_offset = -276;
-			            } else if (current_pane == 2){
-			            	pane_offset = -552;
-			            }
-	                    setContainerOffset(drag_offset + pane_offset);
-	                    break;
+		                case 'swipeleft':
+		                    self.next();
+		                    ev.gesture.stopDetect();
+		                    break;
 
-	                case 'swipeleft':
-	                    self.next();
-	                    ev.gesture.stopDetect();
-	                    break;
+		                case 'swiperight':
+		                    self.prev();
+		                    ev.gesture.stopDetect();
+		                    break;
 
-	                case 'swiperight':
-	                    self.prev();
-	                    ev.gesture.stopDetect();
-	                    break;
-
-	                case 'release':
-	                    // more then 50% moved, navigate
-	                    if(Math.abs(ev.gesture.deltaX) > 80) {
-	                        if(ev.gesture.direction == 'right') {
-	                            self.prev();
-	                        } else {
-	                            self.next();
-	                        }
-	                    }
-	                    else {
-	                        self.showPane(current_pane, true);
-	                    }
-	                    break;
+		                case 'release':
+		                    // more then 50% moved, navigate
+		                    if(Math.abs(ev.gesture.deltaX) > 80) {
+		                        if(ev.gesture.direction == 'right') {
+		                            self.prev();
+		                        } else {
+		                            self.next();
+		                        }
+		                    }
+		                    else {
+		                        self.showPane(current_pane, true);
+		                    }
+		                    break;
+		            }	
 	            }
+	            
 	        }
 
 	        var hammertime = new Hammer(element[0], { drag_lock_to_axis: true });
@@ -297,7 +299,7 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	    var currentHeight = $('.lengthBar').height();
 	    var currentEndHour = $('.taskTime span:eq(0)').html(),
 		    currentEndMin = $('.taskTime span:eq(1)').html();
-	    Hammer($('.clock').get(0)).on("drag dragstart dragend dragup dragdown", function (event) {
+	    Hammer($('.clock').get(0)).on("drag dragstart dragend", function (event) {
 	        event.gesture.preventDefault();
 		    switch(event.type) {
 		        case 'touch':
@@ -329,29 +331,19 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	        		 durationHour = (durationHour > 9)?durationHour:'0'+durationHour;
 	        		$('.length').html('<span>'+durationHour+'</span> h <span>'+durationMin+'</span> m');
 
-		             console.log(clockMin);
+		             // console.log(clockMin);
 		             break;
 		        case 'dragstart':
 		             currentHeight = $('.lengthBar').height();
 		             currentEndHour = $('.taskTime span:eq(0)').html();
 		             currentEndMin = $('.taskTime span:eq(1)').html();
+		             panelSwitch = false;
 		             // console.log('start' + currentHeight);
 		             break;
 		        case 'dragend':
+		             panelSwitch = true;
 		             // console.log('dragend!');
 		             break;
-		        case 'dragup':
-		             // console.log('dragup!');
-		             break;
-		        case 'dragdown':
-		             // console.log('dragdown!');
-		             break;
-		        case 'transform':
-		             console.log('transform!');
-		             // var posiX = event.gesture.center.pageX;
-		             // var posiY = event.gesture.center.pageY;
-
-		             break;                
 		    }     
 		});
 		
