@@ -26,6 +26,8 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	$scope.calendarList = calendarList;
 	$scope.userProfile = userProfile;
 	$scope.eventList = eventList;
+
+
 	// console.log(eventList.items[0].start.dateTime);
 	var firstDay = new Date(eventList.items[0].start.dateTime);
 	firstDay.setSeconds(0);
@@ -296,10 +298,23 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 		    min.style.oTransform      = 'rotate('+mDeg+'deg)'; 
 		    min.style.transform       = 'rotate('+mDeg+'deg)'; 
 	    }
+	    function replaceHtml(el, html) {
+			var oldEl = typeof el === "string" ? document.getElementById(el) : el;
+			/*@cc_on // Pure innerHTML is slightly faster in IE
+				oldEl.innerHTML = html;
+				return oldEl;
+			@*/
+			var newEl = oldEl.cloneNode(false);
+			newEl.innerHTML = html;
+			oldEl.parentNode.replaceChild(newEl, oldEl);
+			/* Since we just removed the old element from the DOM, return a reference
+			to the new element, which can be used to restore variable references. */
+			return newEl;
+		};
 	    var currentHeight = $('.lengthBar').height();
 	    var currentEndHour = $('.taskTime span:eq(0)').html(),
 		    currentEndMin = $('.taskTime span:eq(1)').html();
-	    Hammer($('.clock').get(0)).on("drag dragstart dragend", function (event) {
+	    Hammer($('.editLength').get(0)).on("drag dragstart dragend", function (event) {
 	        event.gesture.preventDefault();
 		    switch(event.type) {
 		        case 'touch':
@@ -324,13 +339,21 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	        		 clockMin = Math.floor(clockMin);
 	        		 clockMin = (clockMin > 9)?clockMin:'0'+clockMin;
 	        		 clockHour = (clockHour > 9)?clockHour:'0'+clockHour;
-	        		$('.endTime').html('<span>'+clockHour+'</span>'+':'+'<span>'+clockMin+'</span>');
+	        		// $('.endTime')[0].innerHTML = '<span>'+clockHour+'</span>'+':'+'<span>'+clockMin+'</span>';
+	        		// document.querySelector('.endTime').innerHTML = '<span>'+clockHour+'</span>'+':'+'<span>'+clockMin+'</span>';
+	        		 var endTimeEl = document.querySelector('.endTime');
+
 
 	        		 durationMin = Math.floor(durationMin);
 	        		 durationMin = (durationMin > 9)?durationMin:'0'+durationMin;
 	        		 durationHour = (durationHour > 9)?durationHour:'0'+durationHour;
-	        		$('.length').html('<span>'+durationHour+'</span> h <span>'+durationMin+'</span> m');
-
+	        		// $('.length')[0].innerHTML = '<span>'+durationHour+'</span> h <span>'+durationMin+'</span> m';
+	        		// document.querySelector('.length').innerHTML = '<span>'+durationHour+'</span> h <span>'+durationMin+'</span> m';
+	        		var lengthEl = document.querySelector('.length');
+	        		if(!(clockMin % 5)){
+	        			endTimeEl = replaceHtml(endTimeEl, '<span>'+clockHour+'</span>'+':'+'<span>'+clockMin+'</span>');
+	        			lengthEl = replaceHtml(lengthEl, '<span>'+durationHour+'</span> h <span>'+durationMin+'</span> m');
+	        		 }
 		             // console.log(clockMin);
 		             break;
 		        case 'dragstart':
