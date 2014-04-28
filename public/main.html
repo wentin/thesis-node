@@ -55,7 +55,7 @@
 		</div>
 	</div>
 	<div class="mainPanel panel">
-		<div class="module add">
+		<div class="module add on">
 			<div class="cancel"></div>
 			<div class="ok"></div>
 			<input type="text" class="taskName" placeholder="add task name">
@@ -92,7 +92,7 @@
 				<div class="slider"></div>
 			</div>
 		</div>
-		<div class="module full editLength on">
+		<div class="module full editLength">
 			<div class="cancel"></div>
 			<div class="ok"></div>
 			<div class="lengthBar">
@@ -108,7 +108,7 @@
 			<div class="cancel"></div>
 			<div class="ok"></div>
 			<div class="timeLegend">H : M</div>
-			<div class="hourWrapper">
+			<div class="hourWrapper am active">
 				<div>00</div>
 				<div>01</div>
 				<div>02</div>
@@ -121,6 +121,20 @@
 				<div>09</div>
 				<div>10</div>
 				<div>11</div>
+			</div>
+			<div class="hourWrapper pm">
+				<div>12</div>
+				<div>13</div>
+				<div>14</div>
+				<div>15</div>
+				<div>16</div>
+				<div>17</div>
+				<div>18</div>
+				<div>19</div>
+				<div>20</div>
+				<div>21</div>
+				<div>22</div>
+				<div>23</div>
 			</div>
 			<div class="minWrapper">
 				<div>00</div>
@@ -136,7 +150,7 @@
 				<div>50</div>
 				<div>55</div>
 			</div>
-			<div class="ampmswitch">AM</div>
+			<div class="ampmswitch">am</div>
 		</div>
 		<div class="myProfile">
 			<img ng-src="{{userProfile._json['picture']}}" />

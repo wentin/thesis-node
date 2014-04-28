@@ -845,6 +845,12 @@ overflow-y: hidden; */
       font-weight: 700;
       color: #293162;
       background-color: #fbf2e3; }
+  .module.full .hourWrapper.am,
+  .module.full .hourWrapper.pm {
+    display: none; }
+  .module.full .hourWrapper.am.active,
+  .module.full .hourWrapper.pm.active {
+    display: block; }
   .module.full .minWrapper {
     float: left;
     width: 50%;
@@ -871,7 +877,8 @@ overflow-y: hidden; */
     font-size: 12px;
     position: absolute;
     bottom: 35px;
-    left: 145px; }
+    left: 145px;
+    text-transform: uppercase; }
   .module.full .ampmswitch:hover {
     background-color: #fbf2e3;
     color: #293162; }
@@ -916,7 +923,7 @@ overflow-y: hidden; */
     content: '';
     height: 4px;
     top: -2px;
-    width: 53%;
+    width: 50%;
     border-radius: 3px;
     position: absolute;
     right: 0;
@@ -936,6 +943,15 @@ overflow-y: hidden; */
     position: absolute;
     right: 0;
     background-color: #293162; }
+.module.editLength .clock::after {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background-color: #293162;
+  border-radius: 3px;
+  position: absolute;
+  top: 37px;
+  left: 37px; }
 .module.editLength .endTime {
   border-bottom: solid 1px #fbf2e3;
   width: 150%;

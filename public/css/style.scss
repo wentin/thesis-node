@@ -915,6 +915,14 @@ div.ul {
 			background-color: $milk;
 		}
 	}
+	.hourWrapper.am,
+	.hourWrapper.pm  {
+		display: none;
+	}
+	.hourWrapper.am.active, 
+	.hourWrapper.pm.active{
+		display: block;
+	}
 	.minWrapper {
 		float: left;
 		width: 50%;
@@ -945,6 +953,7 @@ div.ul {
 		position: absolute;
 		bottom: 35px;
 		left: 145px;
+		text-transform: uppercase;
 	}
 	.ampmswitch:hover {
 		background-color: $milk;
@@ -996,7 +1005,7 @@ div.ul {
 			content: '';
 			height: 4px;
 			top: -2px;
-			width: 53%;
+			width: 50%;
 			border-radius: 3px;
 			position: absolute;
 			right: 0;
@@ -1019,6 +1028,16 @@ div.ul {
 			right: 0;
 			background-color: #293162;
 		}
+	}
+	.clock::after {
+		content: '';
+		width: 4px;
+		height: 4px;
+		background-color: $dark;
+		border-radius: 3px;
+		position: absolute;
+		top: 37px;
+		left: 37px;
 	}
 	.endTime {
 		border-bottom: solid 1px $milk;
