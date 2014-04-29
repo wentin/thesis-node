@@ -84,11 +84,11 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 		var panelSwitch = true;
 		
 		var now = moment();
-		var nowTop = now.diff(firstDay, 'minutes') / 60 * 100 - 22;
+		var nowTop = now.diff(firstDay, 'minutes') / 60 * 100 - 24;
 		//update div#now with current time every 60s
 		setInterval(function(){
 			var now = moment();
-			var nowTop = now.diff(firstDay, 'minutes') / 60 * 100 - 22;
+			var nowTop = now.diff(firstDay, 'minutes') / 60 * 100 - 24;
 			$('#now').css('top', nowTop);
 			$('#now i').html( now.format('HH:mm') );
 		},60);
@@ -320,11 +320,10 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 		             	clockMin -= 60;
 		             	clockHour += 1;
 		             }
-	        		 setClock(clockHour, clockMin);
-
-
 		             var clockTime = currentTaskTime.clone().add({hours:durationHour,minutes:durationMin})
-		             
+	        		 setClock(clockTime.hours(), clockMin);
+
+
 	        		 clockMin = Math.floor(clockMin);
 	        		 clockMin = (clockMin > 9)?clockMin:'0'+clockMin;
 	        		 clockHour = (clockHour > 9)?clockHour:'0'+clockHour;
