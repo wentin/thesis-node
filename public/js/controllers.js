@@ -305,7 +305,6 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 		});
 
 	    $('.taskTime').hammer().on('tap', function(){
-	    // Hammer($('.taskTime').get(0)).on("tap", function (event) {
 	        $('.module.editTime').addClass('on');
 	        var hour = $('span:eq(0)', this).html();
 	        var min  = $('span:eq(1)', this).html();
@@ -323,7 +322,6 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	    })
 
 	    $('.ampmswitch').hammer().on('tap', function(){
-	    // Hammer($('.ampmswitch').get(0)).on("tap", function (event) {
 	    	if($(this).html() == 'am') {
 	    		$(this).html('pm');
 	    	}else{
@@ -333,7 +331,6 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	    })
 
 	    $('.taskLength').hammer().on('tap', function(){
-	    // Hammer($('.taskLength').get(0)).on("tap", function (event) {
 	        $('.module.editLength').addClass('on');
 	        
 	        var currentTaskTime = moment( $(this).prev('.taskTime').text(), 'HH:mm');
@@ -350,6 +347,21 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	        // console.log('lengthBarHeight: ' + lengthBarHeight);
 	    })
 
+	    $('.taskProject').hammer().on('tap', function(){
+	        $('.module.setProject').addClass('on');
+	        
+	        var currentPercentage = $('.percentage i', this).html();
+	        var currentProject = $('.taskProjectName', this).html();
+
+	        //initialize the set project module by setting the 3 things: selected project, percentage number text, percentage slider width
+	        $('.module.setProject .li, .module.setProject li').removeClass('selected');
+	        $('.module.setProject ul.projectSelector li:contains('+currentProject+')').addClass('selected');
+
+	        $('.module.setProject .numbers i').html(currentPercentage);
+
+	        var initWidth = $('.percentageBar').width()*currentPercentage/100;
+	        $('.percentageSlider').css('width', initWidth + 'px');
+	    })
 
 		var currentHeight, currentTaskHour, currentTaskMin, currentTaskTime;
 	    $('.editLength').on("drag dragstart dragend", function (event) {
@@ -415,41 +427,133 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 		    }     
 		});
 		
-	    // $('.module.editLength .ok').bind('tapone', function(){
+		var currentWidth;
+		var fullWidth = $('.percentageBar').width();
+		$('.setPercentage').on("drag dragstart dragend", function (event) {
+	        event.gesture.preventDefault();
+		    switch(event.type) {
+		        case 'touch':
+		             break;
+		        case 'drag':
+		             var posY = event.gesture.deltaX;
+
+		             //set the percentageSlider Width when dragging
+		             var percentageSliderWidth = posY + currentWidth;
+		             if(percentageSliderWidth >= fullWidth) {
+		             	percentageSliderWidth = fullWidth;
+		             }
+		             if(percentageSliderWidth <= 0) {
+		             	percentageSliderWidth = 0;
+		             }
+		             $('.percentageSlider').css("width", percentageSliderWidth+"px");
+
+		            var percentage = parseInt(percentageSliderWidth/fullWidth*100);
+	        		var percentageEl = document.querySelector('.numbers i');
+		             // if(!(percentage % 5)){
+	        			percentageEl = replaceHtml(percentageEl, percentage);
+	        		 // }
+		             
+		             break;
+		        case 'dragstart':
+		             currentWidth = $('.percentageSlider').width();
+		             break;
+		        case 'dragend':
+		             break;
+		    }     
+		});
+		
+		var currentSliderLeft;
+		var sliderLeft;
+		var maxSliderLeft = 169.5;
+		var minSliderLeft = -3.5;
+		$('.statusSlider').on("drag dragstart dragend", function (event) {
+	        event.gesture.preventDefault();
+		    switch(event.type) {
+		        case 'touch':
+		             break;
+		        case 'drag':
+		             var posX = event.gesture.deltaX;
+
+		             //set the percentageSlider Width when dragging
+		             sliderLeft = posX + currentSliderLeft;
+		             if(sliderLeft >= maxSliderLeft) {
+		             	sliderLeft = maxSliderLeft;
+		             }
+		             if(sliderLeft <= minSliderLeft) {
+		             	sliderLeft = minSliderLeft;
+		             }
+		             // console.log('sliderLeft' + sliderLeft);
+		             $('.slider').css("left", sliderLeft+"px");
+		             
+		             break;
+		        case 'dragstart':
+		             currentSliderLeft = parseFloat($('.slider').css('left'));
+					 $('.slider').removeClass("animate");
+		             break;
+		        case 'dragend':
+                    if(Math.abs(event.gesture.deltaX) > 30) {
+                        if(event.gesture.direction == 'right') {
+                            $('.slider').css("left", maxSliderLeft+"px");
+                        } else {
+                            $('.slider').css("left", minSliderLeft+"px");
+                        }
+                    }
+                    else {
+		            	$('.slider').css("left", currentSliderLeft+"px");
+                    }
+					$('.slider').addClass("animate");
+                    break;
+		    }     
+		});
+
+	    $('.setParentProject .li, .setParentProject li').hammer().on('tap', function(){
+	        $('.setParentProject .li, .setParentProject li').removeClass('selected');
+	        $(this).addClass('selected');
+	    })
+
+
 	    $('.module.editLength .ok').hammer().on("tap", function(e){
 	        var duration = $('.module.on .length').html();
 	        $('.module.on .taskLength').html(duration);
 	    })
 
-	    // $('.module .ok, .module .cancel').bind('tapone', function(){
-	    $('.module .ok').hammer().on("tap", function(e){
+
+	    $('.module.setProject .ok').hammer().on("tap", function(e){
+	        var percentage = $('.module.on .percentageBar .numbers i').html();
+	        var parentProject;
+	        if($('.setParentProject .li').hasClass('selected')){
+				parentProject = $('.setParentProject .selected input').val();
+	        } else if($('.setParentProject li').hasClass('selected')){
+				parentProject = $('.setParentProject .selected').html();
+	        } else {
+	        	parentProject = 'Set Parent Project';
+	        	percentage = 10;
+	        }
+	        $('.module.on .percentage i').html(percentage);
+	        $('.module.on .taskProject .taskProjectName').html(parentProject);
+	        $('.module.on .projectAfter').css('width', percentage+'%');
+	    })
+
+	    $('.module .ok, .module .cancel').hammer().on("tap", function(e){
 	        $(this).parents('.module').removeClass('on');
 	    })
 
-	    // $('.hourWrapper div').bind('tapone', function(){
-	    // Hammer($('.hourWrapper div').get(0)).on("tap", function (event) {
 	    $('.hourWrapper div').hammer().on("tap", function(e){
 	        $('.hourWrapper div').removeClass('select');
 	        $(this).addClass('select');
 	    })
 
-	    // $('.minWrapper div').bind('tapone', function(){
-	    // Hammer($('.minWrapper div').get(0)).on("tap", function (event) {
 	    $('.minWrapper div').hammer().on("tap", function(e){
 	        $(this).siblings('div').removeClass('select');
 	        $(this).addClass('select');
 	    })
 
-	    // $('.module.editTime .ok').bind('tapone', function(){
-	    // Hammer($('.module.editTime .ok').get(0)).on("tap", function (event) {
 	    $('.module.editTime .ok').hammer().on("tap", function(e){
 	        var hour = $('.hourWrapper div.select').text();
 	        var min = $('.minWrapper div.select').text();
 	        $('.module.on .taskTime').html('<span>'+hour+'</span>'+':'+'<span>'+min+'</span>');
 	    })
 
-	    // $('.tabs .tab').click(function(e){
-	    // Hammer($('.tabs .tab').get(0)).on("tap", function (event) {
 	    $('.tabs .tab').hammer().on("tap", function(e){
 	        e.preventDefault();
 	        var href = $(this).attr('href');

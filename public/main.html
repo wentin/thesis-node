@@ -62,8 +62,8 @@
 			<div class="taskTime"><span>16</span>:<span>45</span></div>
 			<div class="taskLength"><span class="hour">02</span> h <span class="mins">00</span> m</div>
 			<div class="taskProject">
-				<span class="taskProjectName">Belong to project</span>
-				<span class="percentage"><i>15</i>%</span>
+				<span class="taskProjectName">Set Parent Project</span>
+				<span class="percentage"><i>10</i>%</span>
 			</div>
 			<div class="taskInvitation">
 				<span class="inivitation">Invitation</span>
@@ -72,7 +72,7 @@
 				</span>
 			</div>
 		</div>
-		<div class="module editAfter">
+		<div class="module editAfter on">
 			<div class="cancel"></div>
 			<div class="ok"></div>
 			<input type="text" class="taskName" placeholder="add task name" value="Thesis presentation">
@@ -89,7 +89,7 @@
 			<div class="statusSlider">
 				<div class="failIcon"></div>
 				<div class="successIcon"></div>
-				<div class="slider"></div>
+				<div class="slider" style="left: 82.5px"></div>
 			</div>
 		</div>
 		<div class="module full editLength">
@@ -102,6 +102,29 @@
 					<div class="minHand"></div>
 				</div>
 				<span class="endTime"><span>06</span>:<span>30</span></span>
+			</div>
+		</div>
+		<div class="module full setProject">
+			<div class="cancel"></div>
+			<div class="ok"></div>
+			<div class="setParentProject">
+				<h1>1. Set Parent Project</h1>
+				<div class="li"><input type="text" placeholder="New Project"></div>
+				<ul class="projectSelector">
+					<li class="selected">Thesis</li>
+					<li>Job Hunting</li>
+					<li>ProcrastiMate app</li>
+				</ul>
+			</div>
+			<div class="setPercentage">
+				<h1>2. Set Percentage</h1>
+				<div class="percentageBar">
+					<div class="percentageSlider">
+						<div class="numbers">
+							<i>10</i><span>%</span>						
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="module full editTime">
@@ -178,8 +201,34 @@
 		</div>
 		<div class="calendarWrapper">
 			<div class="calendar">
+				<!-- <div class="day" >
+					<div class="event left entry" 
+					ng-repeat="event in eventList.items" ng-style="getTopHeight(event)">
+						<div class="mark start"></div>
+						<div class="mark check"></div>
+						<h1>{{event.summary}}</h1>
+						<div class="startEnd">
+							<span class="start" ng-bind="getHourMinute(event.start.dateTime)"></span>
+							<span class="end" ng-bind="getHourMinute(event.end.dateTime)"></span>
+						</div>
+						<div class="detailWrapper">
+						</div>
+					</div>
+
+					<div class="event right" style="top: 1700px; height: 150px;">
+						<div class="mark start"></div>
+						<div class="mark future"></div>
+						<h1>Resume submit</h1>
+						<div class="startEnd">
+							<span class="start">17:00</span>
+							<span class="end">18:30</span>
+						</div>
+						<div class="detailWrapper">
+						</div>
+					</div>
+				</div> -->
+
 				<div id="now" style="top: 1660px">NOW <i>16:36</i></div>
-				
 				<div class="event left entry" 
 				ng-repeat="event in eventList.items" ng-style="getTopHeight(event)">
 					<div class="mark start"></div>
