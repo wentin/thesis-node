@@ -610,10 +610,13 @@ overflow-y: hidden; */
       right: 44px;
       background: url(../i/today-bg.png) no-repeat center center;
       background-size: contain; }
-  .calHead .calHeadItem::before {
-    content: '\e617';
+    .calHead .calHeadItem input[type=date] {
+      position: absolute;
+      left: 100px;
+      top: 10px;
+      z-index: -1; }
+  .calHead .calHeadItem .prevDate {
     position: absolute;
-    font-family: 'icomoon';
     left: 0;
     top: 0;
     height: 70px;
@@ -621,10 +624,11 @@ overflow-y: hidden; */
     width: 44px;
     text-align: center;
     font-size: 30px; }
-  .calHead .calHeadItem::after {
-    content: '\e616';
+  .calHead .calHeadItem .prevDate::before {
+    content: '\e617';
+    font-family: 'icomoon'; }
+  .calHead .calHeadItem .nextDate {
     position: absolute;
-    font-family: 'icomoon';
     right: 0;
     top: 0;
     height: 70px;
@@ -632,6 +636,9 @@ overflow-y: hidden; */
     width: 44px;
     text-align: center;
     font-size: 30px; }
+  .calHead .calHeadItem .nextDate::before {
+    content: '\e616';
+    font-family: 'icomoon'; }
 
 .module.on {
   -webkit-transform: translate3d(0, 0, 0);

@@ -3,7 +3,6 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	$scope.userProfile = userProfile;
 	$scope.eventList = eventList;
 
-
 	// console.log(eventList.items[0].start.dateTime);
 	var firstDay = moment(eventList.items[0].start.dateTime);
 	firstDay.seconds(0).minute(0).hour(0);
@@ -48,6 +47,11 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	    $('.module.editAfter').addClass('on');	
     };
 
+    $scope.today =  function(){
+		$('.calHead input[type=date]').trigger("change");
+    	return moment().format('YYYY-MM-DD');
+    }
+
 	angular.element(document).ready(function () {
         
         //Iscroll for the calendar wrapper
@@ -67,10 +71,12 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 			$('#now i').html( now.format('HH:mm') );
 		},60);
 
+
 	    // scroll to put the "now" in center
 	    /*calScroll.scrollTo(0,  214 - nowTop, 200);*/
 		$('.calendarWrapper').scrollTop( nowTop- 190 );
 
+		// calendar header date picker function
 		$('.todayButton').hammer().on('tap', function(){
 			$('.calendarWrapper').scrollTop( nowTop- 190 );			
 		})
@@ -95,6 +101,28 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 			$('.date span').html(selectDate.format('ddd'));
 
 		})
+
+
+		$('.calHead .prevDate').hammer().on('tap', function(){
+			var currentDate = moment($('.calHead input[type=date]').val());
+			var prevDate = currentDate.clone().date(currentDate.date()-1).format('YYYY-MM-DD');
+			$('.calHead input[type=date]').val(prevDate);
+			$('.calHead input[type=date]').trigger("change");
+		})
+		$('.calHead .nextDate').hammer().on('tap', function(){
+			var currentDate = moment($('.calHead input[type=date]').val());
+			var nextDate = currentDate.clone().date(currentDate.date()+1).format('YYYY-MM-DD');
+			$('.calHead input[type=date]').val(nextDate);
+			$('.calHead input[type=date]').trigger("change");
+		})
+		/*$('.calHead').hammer().on('dragup', function(){
+			var currentDate = $('input[type=date]', this).val();
+			console.log('trigger');
+			var prevDate = moment(currentDate).day(-1).format('YYYY-MM-DD');
+			$('input[type=date]', this).val(prevDate);
+		})*/
+
+		// calendar header date picker function ends
 
 		$('.inviteButton').hammer().on('tap', function(){
 			$(this).toggleClass('on').toggleClass('off');		

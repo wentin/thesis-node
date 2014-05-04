@@ -625,7 +625,7 @@ div.ul.animate {
 			position: absolute;
 			left: 100px;
 			width: 132px;
-				text-transform: uppercase;
+			text-transform: uppercase;
 		}
 		.todayButton {
 			width: 38px;
@@ -638,11 +638,15 @@ div.ul.animate {
 			background: url(../i/today-bg.png) no-repeat center center;
 			background-size: contain;
 		}
+		input[type=date] {
+			position: absolute;
+			left: 100px;
+			top: 10px;
+			z-index: -1;
+		}
 	}
-	.calHeadItem::before {
-		content: '\e617';
-		position: absolute;
-		font-family: 'icomoon';
+	.calHeadItem .prevDate {
+		position: absolute;	
 		left: 0;
 		top: 0;
 		height: 70px;
@@ -651,10 +655,13 @@ div.ul.animate {
 		text-align: center;
 		font-size: 30px;
 	}
-	.calHeadItem::after {
-		content: '\e616';
-		position: absolute;
+	.calHeadItem .prevDate::before {
+		content: '\e617';
 		font-family: 'icomoon';
+
+	}
+	.calHeadItem .nextDate {
+		position: absolute;
 		right: 0;
 		top: 0;
 		height: 70px;
@@ -662,6 +669,10 @@ div.ul.animate {
 		width: 44px;
 		text-align: center;
 		font-size: 30px;
+	}
+	.calHeadItem .nextDate::before {
+		content: '\e616';
+		font-family: 'icomoon';
 	}
 }
 .module.on {

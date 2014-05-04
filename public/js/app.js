@@ -1,5 +1,5 @@
 var PApp = angular.module('PApp', [
-  'ngRoute', 'ngMobile', 'ngTouch'
+  'ngRoute'
 ]);
 
 PApp.config(['$routeProvider', function($routeProvider) {
