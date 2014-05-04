@@ -1,27 +1,3 @@
-function dateDiff(date1,date2,interval) {
-    var second=1000, minute=second*60, hour=minute*60, day=hour*24, week=day*7;
-    date1 = new Date(date1);
-    date2 = new Date(date2);
-    var timediff = date2 - date1;
-    if (isNaN(timediff)) return NaN;
-    switch (interval) {
-        case "years": return date2.getFullYear() - date1.getFullYear();
-        case "months": return (
-            ( date2.getFullYear() * 12 + date2.getMonth() )
-            -
-            ( date1.getFullYear() * 12 + date1.getMonth() )
-        );
-        case "weeks"  : return Math.floor(timediff / week);
-        case "days"   : return Math.floor(timediff / day); 
-        case "hours"  : return Math.floor(timediff / hour); 
-        case "minutes": return Math.floor(timediff / minute);
-        case "seconds": return Math.floor(timediff / second);
-        default: return undefined;
-    }
-}
-
-
-
 function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	$scope.calendarList = calendarList;
 	$scope.userProfile = userProfile;
@@ -49,7 +25,7 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	$('.timeLeft, .timeRight').html(html);
 
 	$scope.getHourMinute = function (time) {
-        var HHmm =  moment().format('HH:mm');
+        var HHmm =  moment(time).format('HH:mm');
         return HHmm;
     };
     
@@ -81,8 +57,6 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 		    fadeScrollbars: true,
 		});*/
 
-		var panelSwitch = true;
-		
 		var now = moment();
 		var nowTop = now.diff(firstDay, 'minutes') / 60 * 100 - 24;
 		//update div#now with current time every 60s
@@ -97,11 +71,32 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	    /*calScroll.scrollTo(0,  214 - nowTop, 200);*/
 		$('.calendarWrapper').scrollTop( nowTop- 190 );
 
-		$('.todayButton').bind('tapone', function(){
+		$('.todayButton').hammer().on('tap', function(){
 			$('.calendarWrapper').scrollTop( nowTop- 190 );			
 		})
 
-		$('.inviteButton').bind('tapone', function(){
+		$('.weekday, .date').hammer().on('tap', function(){
+			$(this).siblings('input[type=date]').focus();	
+		})
+
+		$('input[type=date]').change(function(){
+			var selectDate = moment($(this).val());
+			var today = moment(new Date().setHours(0,0,0,0));
+			if( selectDate.diff(today, 'days') == 0) {
+				$('.weekday').html('today');
+			} else if (selectDate.diff(today, 'days') == 1 ) {
+				$('.weekday').html('tomorrow');
+			} else if (selectDate.diff(today, 'days') == -1) {
+				$('.weekday').html('yesterday');
+			} else {
+				$('.weekday').html(selectDate.format('dddd'));
+			}
+			$('.date i').html(selectDate.format('DD'));
+			$('.date span').html(selectDate.format('ddd'));
+
+		})
+
+		$('.inviteButton').hammer().on('tap', function(){
 			$(this).toggleClass('on').toggleClass('off');		
 		})
 
@@ -109,6 +104,10 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	    	if ( h >= 12) {
 	    		h -= 12;
 	    	}
+	    	/*if ( m >= 60) {
+	    		m-= 60;
+	    	}*/
+	    	console.log('h: ' + h + '; m: ' + m);
 	    	hDeg = h/12*360 + m/60*30 - 90;
 	    	mDeg = m/60*360 - 90;
 
@@ -152,12 +151,19 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 
 	            if (index == 0){
 	            	offset = 0;
+	            	$('.panel').removeClass('active');
+	            	$('.leftPanel').addClass('active');
+
 	            	$('.left.event').addClass('side');
 	            } else if (index == 1){
 	            	offset = -276;
+	            	$('.panel').removeClass('active');
+	            	$('.mainPanel').addClass('active');
 	            	$('.event').removeClass('side');
 	            } else if (index == 2){
 	            	offset = -552;
+	            	$('.panel').removeClass('active');
+	            	$('.rightPanel').addClass('active');
 	            	$('.right.event').addClass('side');
 	            }
 	            setContainerOffset(offset, animate);
@@ -192,6 +198,8 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	            // console.log(ev);
 	            // disable browser scrolling
 	            ev.gesture.preventDefault();
+
+	            panelSwitch = !$('.module').hasClass('on');
 	            if(panelSwitch){
 		            switch(ev.type) {
 		                case 'dragright':
@@ -242,16 +250,34 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	            
 	        }
 
-	        var hammertime = new Hammer(element[0], { drag_lock_to_axis: true });
-	        hammertime.on("release dragleft dragright swipeleft swiperight", handleHammer);
+	        $(element).hammer({ drag_lock_to_axis: true }).on("release dragleft dragright swipeleft swiperight", handleHammer);
+	        $(element).hammer().on("tap swiperight", '.myProfile', function(event) {
+	        	if( $('.leftPanel').hasClass('active') ){
+					self.next();
+	        	} else {
+					self.prev();
+	        	}
+	        });
+	        $(element).hammer().on("tap swipeleft", '.friendProfile', function(event) {
+	        	if( $('.rightPanel').hasClass('active') ){
+					self.prev();
+	        	} else {
+					self.next();
+	        	}
+	        });
 	    }
 	    var carousel = new Carousel("#wrapper");
 
-	    $('.addButton').bind('tapone', function(){
+	    $('.addButton').hammer().on('tap', function(){
 	        $('.module.add').addClass('on');
 	    })
 
-	    $('.taskTime').bind('tapone', function(){
+	    $('.calendar').hammer().on("tap", '.event', function(event) {
+	        $('.module.editAfter').addClass('on');
+		});
+
+	    $('.taskTime').hammer().on('tap', function(){
+	    // Hammer($('.taskTime').get(0)).on("tap", function (event) {
 	        $('.module.editTime').addClass('on');
 	        var hour = $('span:eq(0)', this).html();
 	        var min  = $('span:eq(1)', this).html();
@@ -268,7 +294,8 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 
 	    })
 
-	    $('.ampmswitch').bind('tapone', function(){
+	    $('.ampmswitch').hammer().on('tap', function(){
+	    // Hammer($('.ampmswitch').get(0)).on("tap", function (event) {
 	    	if($(this).html() == 'am') {
 	    		$(this).html('pm');
 	    	}else{
@@ -277,7 +304,8 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	    	$('.hourWrapper').toggleClass('active');
 	    })
 
-	    $('.taskLength').bind('tapone', function(){
+	    $('.taskLength').hammer().on('tap', function(){
+	    // Hammer($('.taskLength').get(0)).on("tap", function (event) {
 	        $('.module.editLength').addClass('on');
 	        
 	        var currentTaskTime = moment( $(this).prev('.taskTime').text(), 'HH:mm');
@@ -296,7 +324,7 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 
 
 		var currentHeight, currentTaskHour, currentTaskMin, currentTaskTime;
-	    Hammer($('.editLength').get(0)).on("drag dragstart dragend", function (event) {
+	    $('.editLength').on("drag dragstart dragend", function (event) {
 	        event.gesture.preventDefault();
 		    switch(event.type) {
 		        case 'touch':
@@ -320,9 +348,11 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 		             	clockMin -= 60;
 		             	clockHour += 1;
 		             }
+		             if(clockHour >= 12) {
+		             	clockHour -= 12;
+		             }
 		             var clockTime = currentTaskTime.clone().add({hours:durationHour,minutes:durationMin})
-	        		 setClock(clockTime.hours(), clockMin);
-
+	        		 setClock(clockHour, clockMin);
 
 	        		 clockMin = Math.floor(clockMin);
 	        		 clockMin = (clockMin > 9)?clockMin:'0'+clockMin;
@@ -332,6 +362,12 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	        		 durationMin = (durationMin > 9)?durationMin:'0'+durationMin;
 	        		 durationHour = (durationHour > 9)?durationHour:'0'+durationHour;
 	        		
+	        		 // duration = clockTime.diff(currentTaskTime);
+	        		 // durationMin = clockTime.diff(currentTaskTime, 'minutes');
+	        		 // moment.utc(duration).format("HH:mm:ss.SSS")
+	        		 // durationHour = moment.utc(duration).format("HH");
+	        		 // durationMin = moment.utc(duration).format("mm");
+
 		            // set the length text, endTime text when dragging
 	        		var endTimeEl = document.querySelector('.endTime');
 	        		var lengthEl  = document.querySelector('.length');
@@ -345,41 +381,48 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 		             currentTaskHour = $('.taskTime span:eq(0)').html();
 		             currentTaskMin = $('.taskTime span:eq(1)').html();
 		             currentTaskTime = moment().hours(currentTaskHour).minutes(currentTaskMin);
-
-		             panelSwitch = false;
 		             break;
 		        case 'dragend':
-		             panelSwitch = true;
 		             break;
 		    }     
 		});
 		
-	    $('.module.editLength .ok').bind('tapone', function(){
+	    // $('.module.editLength .ok').bind('tapone', function(){
+	    $('.module.editLength .ok').hammer().on("tap", function(e){
 	        var duration = $('.module.on .length').html();
 	        $('.module.on .taskLength').html(duration);
 	    })
 
-	    $('.module .ok, .module .cancel').bind('tapone', function(){
+	    // $('.module .ok, .module .cancel').bind('tapone', function(){
+	    $('.module .ok').hammer().on("tap", function(e){
 	        $(this).parents('.module').removeClass('on');
 	    })
 
-	    $('.hourWrapper div').bind('tapone', function(){
+	    // $('.hourWrapper div').bind('tapone', function(){
+	    // Hammer($('.hourWrapper div').get(0)).on("tap", function (event) {
+	    $('.hourWrapper div').hammer().on("tap", function(e){
 	        $('.hourWrapper div').removeClass('select');
 	        $(this).addClass('select');
 	    })
 
-	    $('.minWrapper div').bind('tapone', function(){
+	    // $('.minWrapper div').bind('tapone', function(){
+	    // Hammer($('.minWrapper div').get(0)).on("tap", function (event) {
+	    $('.minWrapper div').hammer().on("tap", function(e){
 	        $(this).siblings('div').removeClass('select');
 	        $(this).addClass('select');
 	    })
 
-	    $('.module.editTime .ok').bind('tapone', function(){
+	    // $('.module.editTime .ok').bind('tapone', function(){
+	    // Hammer($('.module.editTime .ok').get(0)).on("tap", function (event) {
+	    $('.module.editTime .ok').hammer().on("tap", function(e){
 	        var hour = $('.hourWrapper div.select').text();
 	        var min = $('.minWrapper div.select').text();
 	        $('.module.on .taskTime').html('<span>'+hour+'</span>'+':'+'<span>'+min+'</span>');
 	    })
 
-	    $('.tabs .tab').click(function(e){
+	    // $('.tabs .tab').click(function(e){
+	    // Hammer($('.tabs .tab').get(0)).on("tap", function (event) {
+	    $('.tabs .tab').hammer().on("tap", function(e){
 	        e.preventDefault();
 	        var href = $(this).attr('href');
 	        $(this).addClass('active').siblings('.tab').removeClass('active');

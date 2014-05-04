@@ -68,6 +68,21 @@ $dark: #293162;
 :-ms-input-placeholder { /* Internet Explorer 10+ */
     color: rgba(255,255,255,0.2);
 }
+* {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: -moz-none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+p {
+    -webkit-user-select: text;
+    -khtml-user-select: text;
+    -moz-user-select: text;
+    -o-user-select: text;
+    user-select: text;
+}
 body {
 	font-family: $sourceSans;
 	margin: 0 ;
@@ -82,6 +97,9 @@ h1, h2, h3, h4, ul, li {
 	padding: 0;
 	font-weight: normal;
 }
+.hidden {
+	opacity:  0;
+}
 input[type="text"] {
 	-webkit-appearance: none;
     border-radius: 0;
@@ -95,6 +113,9 @@ input[type="text"] {
 .unstyled::-webkit-calendar-picker-indicator {
     /*display: none;*/
     /*-webkit-appearance: none;*/
+}
+i {
+	font-style: normal;
 }
 a {
 	color: $milk;
@@ -139,7 +160,12 @@ a {
 div.ul {
 	-webkit-transform: translate3d(-276px, 0px, 0px) scale3d(1, 1, 1);
 }
-
+div.ul.animate {
+    -webkit-transition: all .3s ease-out;
+    -moz-transition: all .3s ease-out;
+    -o-transition: all .3s ease-out;
+    transition: all .3s ease-out;
+}
 .myProfile {
 	width: 40px;
 	height: 40px;
@@ -588,6 +614,7 @@ div.ul {
 				font-weight: 900;
 				opacity: 0.6;
 				line-height: 15px;
+				text-transform: uppercase;
 			}
 		}
 		.weekday {
@@ -598,6 +625,7 @@ div.ul {
 			position: absolute;
 			left: 100px;
 			width: 132px;
+				text-transform: uppercase;
 		}
 		.todayButton {
 			width: 38px;
@@ -761,11 +789,11 @@ div.ul {
 			display: inline-block;
 			border-radius: 16px;
 			margin-bottom: -10px;
-			-webkit-transition: all 1s ease;
-			-moz-transition: all 1s ease;
-			-ms-transition: all 1s ease;
-			-o-transition: all 1s ease;
-			transition: all 1s ease;
+			-webkit-transition: all 0.3s;
+			-moz-transition: all 0.3s;
+			-ms-transition: all 0.3s;
+			-o-transition: all 0.3s;
+			transition: all 0.3s;
 			i {
 				display: block;
 				position: absolute;
@@ -774,11 +802,11 @@ div.ul {
 				top: 1px;
 				left: 1px;
 				border-radius: 15px;
-				-webkit-transition: all 1s ease;
-				-moz-transition: all 1s ease;
-				-ms-transition: all 1s ease;
-				-o-transition: all 1s ease;
-				transition: all 1s ease;
+				-webkit-transition: all 0.3s;
+				-moz-transition: all 0.3s;
+				-ms-transition: all 0.3s;
+				-o-transition: all 0.3s;
+				transition: all 0.3s;
 			}
 		}
 		.inviteButton.off {

@@ -167,10 +167,11 @@
 			<div class="calHeadItem">
 				<div class="date">
 					<span>WED</span>
-					22
+					<i>22</i>
 				</div>
 				<div class="weekday">TOMORROW</div>
 				<div class="todayButton">TODAY</div>
+				<input type="date" name="date" class="hidden">
 			</div>
 		</div>
 		<div class="calendarWrapper">
@@ -178,9 +179,7 @@
 				<div id="now" style="top: 1660px">NOW <i>16:36</i></div>
 				
 				<div class="event left entry" 
-				ng-repeat="event in eventList.items"
-				ng-click = "moduleOn()"  
-				ng-swipe-right="moduleOn()"  ng-style="getTopHeight(event)">
+				ng-repeat="event in eventList.items" ng-style="getTopHeight(event)">
 					<div class="mark start"></div>
 					<div class="mark check"></div>
 					<h1>{{event.summary}}</h1>
