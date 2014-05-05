@@ -3,55 +3,56 @@
 	<div class="leftPanel panel">
 		<h1>{{userProfile.displayName}}</h1>
 		<div class="tabs">
-			<a class="tab tabLeft" href="#profileTab">AWARDS</a><a class="tab tabMiddle active" href="#taskTab">TASKS</a><a class="tab tabRight" href="#dataTab">DATA</a>
+			<a class="tab tabLeft" href="#profileTab"></a>
+			<a class="tab tabMiddle active" href="#taskTab"></a>
+			<a class="tab tabRight" href="#dataTab"></a>
 		</div>
 		<div class="tabWrapper" id="profileTab">
-			 <!-- 
-			<img src="i/awards-challenges-placeholder.png" width="100%" alt=""> -->
+			<img src="i/awards-challenges-placeholder.png" width="100%" alt="">
 		</div>
 		<div class="tabWrapper active" id="taskTab">
 			<ul class="taskList">
-				<span><strong>THESIS</strong> <i class="checkIcon"></i><i class="ongoingIcon"></i><i></i><i></i></span>
+				<span><strong>Thesis</strong> <i class="checkIcon"></i><i class="ongoingIcon"></i><i></i><i></i></span>
 				<li class="first">
-					THESIS PROTOTYPE<i class="checkIcon"></i>
+					Thesis Prototype<i class="checkIcon"></i>
 				</li>			
 				<li>
-					THESIS PRESENTATION<i class="ongoingIcon"></i>
+					Thesis Presentation<i class="ongoingIcon"></i>
 				</li>
 				<li>
-					UI DESIGN<i></i>
+					UI Design<i></i>
 				</li>
 				<li>
-					APP DEVELOPMENT<i></i>
+					App Development<i></i>
 				</li>
 			</ul>
 			<ul class="taskList">
 				<span><strong>Portfolio 2.0</strong> <i class="checkIcon"></i><i class="checkIcon"></i><i></i></span>
 				<li class="first">
-					wireframe<i class="checkIcon"></i>
+					Wireframe<i class="checkIcon"></i>
 				</li>			
 				<li>
-					UI DESIGN<i class="checkIcon"></i>
+					UI Design<i class="checkIcon"></i>
 				</li>
 				<li>
-					WEB DEVELOPMENT<i></i>
+					Web Development<i></i>
 				</li>
 			</ul>
 			<ul class="taskList">
-				<span><strong>freelance</strong> <i class="checkIcon"></i><i class="checkIcon"></i><i></i></span>
+				<span><strong>Freelance</strong> <i class="checkIcon"></i><i class="checkIcon"></i><i></i></span>
 				<li class="first">
-					MEET CLIENT<i class="checkIcon"></i>
+					Meeting with client<i class="checkIcon"></i>
 				</li>			
 				<li>
-					PROPOSAL<i class="checkIcon"></i>
+					Proposal<i class="checkIcon"></i>
 				</li>
 				<li>
-					DESIGN DRAFT<i></i>
+					Design draft<i></i>
 				</li>
 			</ul>
 		</div>		
-		<div class="tabWrapper" id="dataTab"><!-- 
-			<img src="i/data-viz.png" width="100%" alt=""> -->
+		<div class="tabWrapper" id="dataTab">
+			<img src="i/data-viz.png" width="100%" alt="">
 		</div>
 	</div>
 	<div class="mainPanel panel">
@@ -72,7 +73,7 @@
 				</span>
 			</div>
 		</div>
-		<div class="module editAfter on">
+		<div class="module editAfter">
 			<div class="cancel"></div>
 			<div class="ok"></div>
 			<input type="text" class="taskName" placeholder="add task name" value="Thesis presentation">
@@ -86,11 +87,14 @@
 				<div class="projectBefore"></div>
 				<div class="projectAfter"></div>
 			</div>
-			<div class="statusSlider">
-				<div class="failIcon"></div>
-				<div class="successIcon"></div>
-				<div class="slider" style="left: 82.5px"></div>
+			<div class="statusSliderWrapper">
+				<div class="statusSlider">
+					<div class="failIcon"></div>
+					<div class="successIcon"></div>
+					<div class="slider"></div>
+				</div>
 			</div>
+			<a class="checkpoint" href="#"></a>
 		</div>
 		<div class="module full editLength">
 			<div class="cancel"></div>
@@ -112,8 +116,8 @@
 				<div class="li"><input type="text" placeholder="New Project"></div>
 				<ul class="projectSelector">
 					<li class="selected">Thesis</li>
-					<li>Job Hunting</li>
-					<li>ProcrastiMate app</li>
+					<li>Portfolio 2.0</li>
+					<li>Freelance</li>
 				</ul>
 			</div>
 			<div class="setPercentage">
@@ -126,6 +130,15 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="module full setCheckpoint">
+			<div class="cancel"></div>
+			<div class="ok"></div>
+			<h1>Set Checkpoint</h1>
+			<ul class="checkpointSelector">
+				<li class="icon-link"><input type="text" placeholder="New Project"></li>
+				<li class="icon-chat selected">Custom Checkpoint</li>
+			</ul>
 		</div>
 		<div class="module full editTime">
 			<div class="cancel"></div>
@@ -440,70 +453,27 @@
 		<h1>Thomas White</h1>
 		
 		<div class="tabs">
-			<a class="tab tabLeft" href="#profileTab">AWARDS</a><a class="tab tabMiddle active" href="#taskTab">TASKS</a><a class="tab tabRight" href="#dataTab">DATA</a>
+			<a class="tab tabLeft" href="#profileTab"></a>
+			<a class="tab tabMiddle active" href="#taskTab"></a>
+			<a class="tab tabRight" href="#dataTab"></a>
 		</div>
 		<div class="tabWrapper" id="profileTab">
-			 <!-- 
-			<img src="i/awards-challenges-placeholder.png" width="100%" alt=""> -->
+			<img src="i/awards-challenges-placeholder.png" width="100%" alt="">
 		</div>
 		<div class="tabWrapper active" id="taskTab">
 			<ul class="taskList">
-				<span><strong>THESIS</strong> <i class="checkIcon"></i><i class="ongoingIcon"></i><i></i><i></i></span>
+				<span><strong>Thesis</strong> <i class="checkIcon"></i><i class="ongoingIcon"></i><i></i><i></i></span>
 				<li class="first">
-					THESIS PROTOTYPE<i class="checkIcon"></i>
+					Thesis Prototype<i class="checkIcon"></i>
 				</li>			
 				<li>
-					THESIS PRESENTATION<i class="ongoingIcon"></i>
+					Thesis Presentation<i class="ongoingIcon"></i>
 				</li>
 				<li>
-					UI DESIGN<i></i>
+					UI Design<i></i>
 				</li>
 				<li>
-					APP DEVELOPMENT<i></i>
-				</li>
-			</ul>
-			<ul class="taskList">
-				<span><strong>Portfolio 2.0</strong> <i class="checkIcon"></i><i class="checkIcon"></i><i></i></span>
-				<li class="first">
-					wireframe<i class="checkIcon"></i>
-				</li>			
-				<li>
-					UI DESIGN<i class="checkIcon"></i>
-				</li>
-				<li>
-					WEB DEVELOPMENT<i></i>
-				</li>
-			</ul>
-			<ul class="taskList">
-				<span><strong>freelance</strong> <i class="checkIcon"></i><i class="checkIcon"></i><i></i></span>
-				<li class="first">
-					MEET CLIENT<i class="checkIcon"></i>
-				</li>			
-				<li>
-					PROPOSAL<i class="checkIcon"></i>
-				</li>
-				<li>
-					DESIGN DRAFT<i></i>
-				</li>
-			</ul>
-		</div>		
-		<div class="tabWrapper" id="dataTab"><!-- 
-			<img src="i/data-viz.png" width="100%" alt=""> -->
-		</div>
-		<div class="tabWrapper active" id="taskTab">
-			<ul class="taskList">
-				<span><strong>THESIS</strong> <i class="checkIcon"></i><i class="ongoingIcon"></i><i></i><i></i></span>
-				<li class="first">
-					THESIS PROTOTYPE<i class="checkIcon"></i>
-				</li>			
-				<li>
-					THESIS PRESENTATION<i class="ongoingIcon"></i>
-				</li>
-				<li>
-					UI DESIGN<i></i>
-				</li>
-				<li>
-					APP DEVELOPMENT<i></i>
+					App Development<i></i>
 				</li>
 			</ul>
 			<ul class="taskList">
@@ -512,26 +482,28 @@
 					Wireframe<i class="checkIcon"></i>
 				</li>			
 				<li>
-					UI DESIGN<i class="checkIcon"></i>
+					UI Design<i class="checkIcon"></i>
 				</li>
 				<li>
-					WEB DEVELOPMENT<i></i>
+					Web Development<i></i>
 				</li>
 			</ul>
 			<ul class="taskList">
-				<span><strong>freelance</strong> <i class="checkIcon"></i><i class="checkIcon"></i><i></i></span>
+				<span><strong>Freelance</strong> <i class="checkIcon"></i><i class="checkIcon"></i><i></i></span>
 				<li class="first">
-					MEET CLIENT<i class="checkIcon"></i>
+					Meeting with client<i class="checkIcon"></i>
 				</li>			
 				<li>
-					PROPOSAL<i class="checkIcon"></i>
+					Proposal<i class="checkIcon"></i>
 				</li>
 				<li>
-					DESIGN DRAFT<i></i>
+					Design draft<i></i>
 				</li>
 			</ul>
 		</div>		
-		<div class="tabWrapper" id="dataTab"></div>
+		<div class="tabWrapper" id="dataTab">
+			<img src="i/data-viz.png" width="100%" alt="">
+		</div>
 	</div>
 </div>
 </div>

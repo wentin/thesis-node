@@ -363,6 +363,10 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	        $('.percentageSlider').css('width', initWidth + 'px');
 	    })
 
+	    $('.checkpoint').hammer().on('tap', function(){
+	        $('.module.setCheckpoint').addClass('on');
+	    })
+
 		var currentHeight, currentTaskHour, currentTaskMin, currentTaskTime;
 	    $('.editLength').on("drag dragstart dragend", function (event) {
 	        event.gesture.preventDefault();
@@ -384,13 +388,14 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 		             var durationMin = lengthBarHeight/2 - durationHour*60;
 		             var clockHour = parseInt(currentTaskHour) + durationHour;
 		             var clockMin = parseInt(currentTaskMin) + durationMin;
+		             console.log('clockHour: '+clockHour);
 		             if(clockMin >= 60) {
 		             	clockMin -= 60;
 		             	clockHour += 1;
 		             }
-		             if(clockHour >= 12) {
+		             /*if(clockHour >= 12) {
 		             	clockHour -= 12;
-		             }
+		             }*/
 		             var clockTime = currentTaskTime.clone().add({hours:durationHour,minutes:durationMin})
 	        		 setClock(clockHour, clockMin);
 
@@ -417,9 +422,9 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	        		 }
 		             break;
 		        case 'dragstart':
-		             currentHeight = $('.lengthBar').height();
-		             currentTaskHour = $('.taskTime span:eq(0)').html();
-		             currentTaskMin = $('.taskTime span:eq(1)').html();
+		             currentHeight = $('.module.on .lengthBar').height();
+		             currentTaskHour = $('.module.on .taskTime span:eq(0)').html();
+		             currentTaskMin = $('.module.on .taskTime span:eq(1)').html();
 		             currentTaskTime = moment().hours(currentTaskHour).minutes(currentTaskMin);
 		             break;
 		        case 'dragend':
@@ -449,9 +454,9 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 
 		            var percentage = parseInt(percentageSliderWidth/fullWidth*100);
 	        		var percentageEl = document.querySelector('.numbers i');
-		             // if(!(percentage % 5)){
+		             if(percentage <= 25 || !(percentage % 5)){
 	        			percentageEl = replaceHtml(percentageEl, percentage);
-	        		 // }
+	        		 }
 		             
 		             break;
 		        case 'dragstart':
@@ -466,7 +471,7 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 		var sliderLeft;
 		var maxSliderLeft = 169.5;
 		var minSliderLeft = -3.5;
-		$('.statusSlider').on("drag dragstart dragend", function (event) {
+		$('.statusSliderWrapper').on("drag dragstart dragend", function (event) {
 	        event.gesture.preventDefault();
 		    switch(event.type) {
 		        case 'touch':
@@ -482,9 +487,11 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 		             if(sliderLeft <= minSliderLeft) {
 		             	sliderLeft = minSliderLeft;
 		             }
-		             // console.log('sliderLeft' + sliderLeft);
 		             $('.slider').css("left", sliderLeft+"px");
 		             
+		             console.log('sliderLeft: ' + sliderLeft);
+		             $('.slider').css("opacity", 1-Math.abs( (sliderLeft-82.5)/87 ) );
+
 		             break;
 		        case 'dragstart':
 		             currentSliderLeft = parseFloat($('.slider').css('left'));
@@ -494,12 +501,26 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
                     if(Math.abs(event.gesture.deltaX) > 30) {
                         if(event.gesture.direction == 'right') {
                             $('.slider').css("left", maxSliderLeft+"px");
+                            $('.slider').removeClass('fail').addClass("success");
+                            $('.failIcon').removeClass("selected");
+                            $('.successIcon').addClass("selected");
+                            $('.module.on .projectAfter').addClass('success');
+		             		$('.slider').css("opacity", 1-Math.abs( (maxSliderLeft-82.5)/87 ) );
+
+	        				$('.module.setCheckpoint').addClass('on');
                         } else {
                             $('.slider').css("left", minSliderLeft+"px");
+                            $('.slider').removeClass('success').addClass("fail");
+                            $('.module.on .projectAfter').removeClass('success');
+                            $('.successIcon').removeClass("selected");
+                            $('.failIcon').addClass("selected");
+		             		$('.slider').css("opacity", 1-Math.abs( (minSliderLeft-82.5)/87 ) );
+							$('.module.on .checkpoint').removeClass('icon-link').removeClass('icon-chat');
                         }
                     }
                     else {
 		            	$('.slider').css("left", currentSliderLeft+"px");
+		             	$('.slider').css("opacity", 1-Math.abs( (currentSliderLeft-82.5)/87 ) );	
                     }
 					$('.slider').addClass("animate");
                     break;
@@ -512,6 +533,12 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	    })
 
 
+	    $('.setCheckpoint li').hammer().on('tap', function(event){
+			event.gesture.preventDefault();
+	        $('.setCheckpoint li').removeClass('selected');
+	        $(this).addClass('selected');
+	    })
+
 	    $('.module.editLength .ok').hammer().on("tap", function(e){
 	        var duration = $('.module.on .length').html();
 	        $('.module.on .taskLength').html(duration);
@@ -522,7 +549,12 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	        var percentage = $('.module.on .percentageBar .numbers i').html();
 	        var parentProject;
 	        if($('.setParentProject .li').hasClass('selected')){
-				parentProject = $('.setParentProject .selected input').val();
+	        	console.log('val: ' + $('.setParentProject .selected input').val());
+				if( $('.setParentProject .selected input').val() != '' ){
+					parentProject = $('.setParentProject .selected input').val();
+				} else {
+					parentProject = 'Set Parent Project';
+				}
 	        } else if($('.setParentProject li').hasClass('selected')){
 				parentProject = $('.setParentProject .selected').html();
 	        } else {
@@ -534,13 +566,43 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	        $('.module.on .projectAfter').css('width', percentage+'%');
 	    })
 
+	    $('.module.setCheckpoint .ok').hammer().on("tap", function(e){
+	        if($('.setCheckpoint .icon-link').hasClass('selected')){
+				if( $('.setCheckpoint .selected input').val() != ''){
+					$('.module.on .checkpoint').removeClass('icon-chat').addClass('icon-link')
+					.attr('href', $('.setCheckpoint .selected input').val());
+				} else {
+					$('.module.on .checkpoint').removeClass('icon-link').addClass('icon-chat');
+				}
+	        } else if($('.setCheckpoint .icon-chat').hasClass('selected')){
+					$('.module.on .checkpoint').removeClass('icon-link').addClass('icon-chat');
+	        } else {
+	        }
+	    })
+
 	    $('.module .ok, .module .cancel').hammer().on("tap", function(e){
 	        $(this).parents('.module').removeClass('on');
 	    })
 
-	    $('.hourWrapper div').hammer().on("tap", function(e){
-	        $('.hourWrapper div').removeClass('select');
-	        $(this).addClass('select');
+	    $('.hourWrapper div').hammer().on("tap swipeup swipedown drag dragend", function(event){
+	        
+	        event.gesture.preventDefault();
+		    switch(event.type) {
+		        case 'tap':
+		        	$('.hourWrapper div').removeClass('select');
+	        		$(this).addClass('select');
+		             break;
+		        case 'drag':
+		             break;
+		        case 'dragstart':
+		             break;
+		        case 'dragend':
+                    break;
+		        case 'swipeup':
+		             break;
+		        case 'swipedown':
+		             break;
+		    }  
 	    })
 
 	    $('.minWrapper div').hammer().on("tap", function(e){
@@ -558,7 +620,7 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	        e.preventDefault();
 	        var href = $(this).attr('href');
 	        $(this).addClass('active').siblings('.tab').removeClass('active');
-	        $(href).addClass('active').siblings('.tabWrapper').removeClass('active');
+	        $(this).parents('.panel').find(href).addClass('active').siblings('.tabWrapper').removeClass('active');
 	    });
 
     });
