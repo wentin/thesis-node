@@ -617,7 +617,7 @@ function MainCntl($scope, $http, calendarList, userProfile, eventList) {
 	    })
 
 	    $('.tabs .tab').hammer().on("tap", function(e){
-	        e.preventDefault();
+	        e.gesture.preventDefault();
 	        var href = $(this).attr('href');
 	        $(this).addClass('active').siblings('.tab').removeClass('active');
 	        $(this).parents('.panel').find(href).addClass('active').siblings('.tabWrapper').removeClass('active');

@@ -107,6 +107,7 @@ input[type="text"] {
 	border: none;
 	background: rgba(0,0,0,0);
 	color: $milk;
+	-webkit-font-smoothing: antialiased;
 }
 
 .unstyled::-webkit-inner-spin-button {
@@ -321,6 +322,10 @@ div.ul {
 	overflow-y: scroll; 
 	overflow-x: hidden;
 	-webkit-overflow-scrolling: touch;
+    -webkit-transition: width .3s ease-out;
+    -moz-transition: width .3s ease-out;
+    -o-transition: width .3s ease-out;
+    transition: width .3s ease-out;
 }
 .event.left {
 	left: 5px;
@@ -1205,7 +1210,6 @@ div.ul {
 		line-height: 25px;
 		border-bottom: solid 1px $milk;
 		text-align: left;
-		font-weight: 300;
 		height: 25px;
 		box-sizing: border-box;
 		padding-left: 0;
@@ -1223,7 +1227,6 @@ div.ul {
 		-webkit-overflow-scrolling: touch;
 	}
 	.li {
-
 		text-align: left;
 		padding: 10px 0 10px 70px;
 		position: relative;
@@ -1233,15 +1236,13 @@ div.ul {
 		text-align: left;
 		position: relative;
 	}
-	li.selected::before, .li.selected::before {
-		content: '';
-		width: 60px;
-		background-color: $milk;
-		height: 25px;
-		display: block;
-		position: absolute;
-		left: 0;
-		top: 10px;
+	li.selected, .li.selected{
+  		background-color: $milk;
+  		color: $dark;
+	}
+	.li.selected input {
+		border-bottom: solid 1px $dark;
+		color: $dark;
 	}
 	.setPercentage {
 		padding: 1px 0;
