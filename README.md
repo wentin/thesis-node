@@ -1,3 +1,13 @@
+How to run:
+if you don't have ngrok (ngrok is for testing on mobile phone), change the code below touse the localhost in server.js
+    
+    callbackURL: "http://p.ngrok.com/auth/callback",
+    // callbackURL: "http://localhost:8082/auth/callback",
+    
+if you do have ngrok, use subdomain p.ngrok.com to broadcast port 8082
+*the url is associated with the google api settings
+noder server.js
+
 Here is the online version
 http://wentin-twitter-data-viz.nodejitsu.com/
 
